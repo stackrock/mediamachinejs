@@ -1,0 +1,31 @@
+{
+  "name": "@stackrock/mediamachinejs",
+  "version": "0.0.23",
+  "description": "Stackrock.io - Mediamachine services client api",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stackrock/mediamachinejs.git"
+  },
+  "scripts": {
+    "test": "jest",
+    "build": "tsc",
+    "prepublish": "npm run build"
+  },
+  "author": "Stackrock <info@stackrock.io>",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21",
+    "typescript": "^3.9.5"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/jest": "^26.0.3",
+    "axios-mock-adapter": "^1.19",
+    "jest": "^26.1.0",
+    "ts-jest": "^26.1.1"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  }
+}
