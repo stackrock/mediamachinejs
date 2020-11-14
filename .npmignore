@@ -2,3 +2,6 @@ src/
 .idea/
 jest.config.jest
 tsconfig.json
+.nvmrc
+tracerBullet/
+.drone.yml
