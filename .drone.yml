@@ -1,7 +1,7 @@
 ---
 kind: pipeline
 type: docker
-name: tracerBullets
+name: tracerBullets hourly
 platform:
   arch: arm64
 concurrency:
@@ -110,7 +110,7 @@ steps:
 ---
 kind: pipeline
 type: docker
-name: tracerBullets
+name: tracerBullets on push
 platform:
   arch: arm64
 concurrency:
