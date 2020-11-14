@@ -85,3 +85,22 @@ steps:
       - yarn install
     commands:
       - ./node_modules/.bin/ts-node tracerBullet/transcode.ts
+
+  - name: slack
+    image: plugins/slack
+    pull: if-not-exists
+    settings:
+      webhook:
+        from_secret: SLACK_WEBHOOK
+      channel:
+        from_secret: SLACK_CHANNEL
+      link_names: true
+    when:
+      status: [success, failure]
+    depends_on:
+      - summary tracerBullet
+      - transcode tracerBullet
+      - thumbnail tracerBullet
+
+
+

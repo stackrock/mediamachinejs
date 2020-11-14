@@ -40,10 +40,8 @@ async function main() {
 
     let status = await job.status();
 
-    console.log(`Got status: ${status}`);
     while (status === JobStatus.queued) {
       status = await job.status();
-      console.log(`Got status: ${status}`);
     }
 
     if (status === JobStatus.done) {
