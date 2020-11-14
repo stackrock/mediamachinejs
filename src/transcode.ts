@@ -134,7 +134,7 @@ export class TranscodeJob {
       outputBlob: this.outputBlob?.toJSON(),
       width: `${this.transcodeWidth}`,
       watermark: this.transcodeWatermark?.toJSON(),
-      transcodeOpts: this.transcodeOpts?.toJSON(),
+      transcode: this.transcodeOpts?.toJSON(),
     };
 
     const resp = await API.createJob("transcode", removeUndefinedFromObj(body));
