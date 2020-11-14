@@ -9,6 +9,10 @@ concurrency:
 trigger:
   branch:
     - master
+  event:
+    -cron
+  cron:
+    - hourly
 
 steps:
   - name: yarn install
