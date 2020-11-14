@@ -6,6 +6,7 @@
  */
 
 import { SummaryJob, Blob, Store, JobStatus, SummaryType } from "../src/index"
+import { sleep } from "./utils";
 
 async function main() {
   const STACKROCK_API_KEY = process.env.STACKROCK_API_KEY;
@@ -39,6 +40,7 @@ async function main() {
     let status = await job.status();
 
     while (status === JobStatus.queued) {
+      await sleep(2);
       status = await job.status();
     }
 
