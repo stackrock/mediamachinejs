@@ -12,10 +12,14 @@ trigger:
 
 steps:
   - name: yarn install
+    pull: if-not-exists
+    image: arm64v8/node:14.15-alpine
     commands:
       - yarn install --pure-lockfile
 
   - name: thumbnail tracerBullet
+    pull: if-not-exists
+    image: arm64v8/node:14.15-alpine
     environment:
       STACKROCK_API_KEY:
         from_secret: STACKROCK_API_KEY
@@ -31,10 +35,14 @@ steps:
         from_secret: THUMBNAIL_INPUT_KEY
       OUTPUT_KEY:
         from_secret: THUMBNAIL_OUTPUT_KEY
+    depends_on:
+      - yarn install
     commands:
       - ./node_modules/.bin/ts-node tracerBullet/thumbnail.ts
 
   - name: summary tracerBullet
+    pull: if-not-exists
+    image: arm64v8/node:14.15-alpine
     environment:
       STACKROCK_API_KEY:
         from_secret: STACKROCK_API_KEY
@@ -50,10 +58,14 @@ steps:
         from_secret: SUMMARY_INPUT_KEY
       OUTPUT_KEY:
         from_secret: SUMMARY_OUTPUT_KEY
+    depends_on:
+      - yarn install
     commands:
       - ./node_modules/.bin/ts-node tracerBullet/summary.ts
 
   - name: transcode tracerBullet
+    pull: if-not-exists
+    image: arm64v8/node:14.15-alpine
     environment:
       STACKROCK_API_KEY:
         from_secret: STACKROCK_API_KEY
@@ -69,5 +81,7 @@ steps:
         from_secret: TRANSCODE_INPUT_KEY
       OUTPUT_KEY:
         from_secret: TRANSCODE_OUTPUT_KEY
+    depends_on:
+      - yarn install
     commands:
       - ./node_modules/.bin/ts-node tracerBullet/transcode.ts
