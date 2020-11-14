@@ -10,18 +10,6 @@ trigger:
   branch:
     - master
 
-environment:
-  STACKROCK_API_KEY:
-    from_secret: STACKROCK_API_KEY
-  BUCKET:
-    from_secret: BUCKET
-  AWS_REGION:
-    from_secret: AWS_REGION
-  AWS_ACCESS_KEY_ID:
-    from_secret: AWS_ACCESS_KEY_ID
-  AWS_SECRET_ACCESS_KEY:
-    from_secret: AWS_SECRET_ACCESS_KEY
-
 steps:
   - name: yarn install
     commands:
@@ -29,6 +17,16 @@ steps:
 
   - name: thumbnail tracerBullet
     environment:
+      STACKROCK_API_KEY:
+        from_secret: STACKROCK_API_KEY
+      BUCKET:
+        from_secret: BUCKET
+      AWS_REGION:
+        from_secret: AWS_REGION
+      AWS_ACCESS_KEY_ID:
+        from_secret: AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: AWS_SECRET_ACCESS_KEY
       INPUT_KEY:
         from_secret: THUMBNAIL_INPUT_KEY
       OUTPUT_KEY:
@@ -38,6 +36,16 @@ steps:
 
   - name: summary tracerBullet
     environment:
+      STACKROCK_API_KEY:
+        from_secret: STACKROCK_API_KEY
+      BUCKET:
+        from_secret: BUCKET
+      AWS_REGION:
+        from_secret: AWS_REGION
+      AWS_ACCESS_KEY_ID:
+        from_secret: AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: AWS_SECRET_ACCESS_KEY
       INPUT_KEY:
         from_secret: SUMMARY_INPUT_KEY
       OUTPUT_KEY:
@@ -47,6 +55,16 @@ steps:
 
   - name: transcode tracerBullet
     environment:
+      STACKROCK_API_KEY:
+        from_secret: STACKROCK_API_KEY
+      BUCKET:
+        from_secret: BUCKET
+      AWS_REGION:
+        from_secret: AWS_REGION
+      AWS_ACCESS_KEY_ID:
+        from_secret: AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: AWS_SECRET_ACCESS_KEY
       INPUT_KEY:
         from_secret: TRANSCODE_INPUT_KEY
       OUTPUT_KEY:
