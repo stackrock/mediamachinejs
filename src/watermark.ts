@@ -1,7 +1,7 @@
 import { removeUndefinedFromObj } from "./utils";
 
 export enum Position {
-  TOP_LEFT = "topLetf",
+  TOP_LEFT = "topLeft",
   TOP_RIGHT = "topRight",
   BOTTOM_LEFT = "bottomLeft",
   BOTTOM_RIGHT = "bottomRight",
