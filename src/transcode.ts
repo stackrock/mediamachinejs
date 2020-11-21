@@ -19,7 +19,7 @@ export enum Bitrate {
 
 export enum Container {
   MP4 = "mp4",
-  WEB = "web",
+  WEBM = "webm",
 }
 
 export enum VideoSize {
