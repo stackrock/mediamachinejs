@@ -40,6 +40,39 @@ export class Blob {
     return b;
   }
 
+  static S3WithDefaults(accessKeyId: string, secretAccessKey: string, region: string): Blob {
+    const b = new Blob();
+    b.blobStore = Store.S3;
+    b.awsCreds = {
+      accessKeyId,
+      secretAccessKey,
+      region,
+      type: Store.S3,
+    }
+    return b;
+  }
+
+  static AzureWithDefaults(accountName: string, accountKey: string): Blob {
+    const b = new Blob();
+    b.blobStore = Store.AZURE_BLOB;
+    b.azureCreds = {
+      accountName,
+      accountKey,
+      type: Store.AZURE_BLOB,
+    }
+    return b;
+  }
+
+  static GCPWithDefaults(json: string): Blob {
+    const b = new Blob();
+    b.blobStore = Store.GOOGLE_BLOB;
+    b.gcpCreds = {
+      json,
+      type: Store.GOOGLE_BLOB,
+    }
+    return b;
+  }
+
   store(store: Store): Blob {
     this.blobStore = store;
     return this;

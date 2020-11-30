@@ -277,7 +277,7 @@ this method returns a `JobStatus` value that can be one of:
 
 A Blob represents a file (image or video) located in either S3, Azure or Google GCP.
 
-to create a new instance of a Blob you first needs to call the `withDefaults` method:
+to create a new instance of a Blob you first need to call the `withDefaults` method:
 
 ```javascript
 import { Blob } from "@stackrock/mediamachine";
@@ -311,6 +311,18 @@ const credentials = {
 
 blob.credentials(credentials);
 ```
+
+additionally, you can create a blob object from scratch with the credentials configured like:
+
+```javascript
+import { Blob } from "@stackrock/mediamachine";
+
+const blob = Blob.S3WithDefaults("my-access-key-id", "secret-access-key", "us-east-1");
+
+//now you need to set the bucket and key
+blob.bucket("my-bucket").key("my-key");
+
+```
 #### Microsoft Azure
 
 for Microsoft Azure you need to provide the `accountName` and the `accountKey`.
@@ -327,6 +339,17 @@ const credentials = {
 blob.credential(credentials);
 ```
 
+additionally, you can create a blob object from scratch with the credentials configured like:
+
+```javascript
+import { Blob } from "@stackrock/mediamachine";
+
+const blob = Blob.AzureWithDefaults("my-account-name", "my-account-key");
+
+//now you need to set the bucket and key
+blob.bucket("my-bucket").key("my-key");
+
+```
 #### Google GCP
 
 for Google GCP you need to provide a string representation of the JSON file with the credentials.
@@ -340,6 +363,18 @@ const credentials = {
 };
 
 blob.credentials(credentials);
+```
+
+additionally, you can create a blob object from scratch with the credentials configured like:
+
+```javascript
+import { Blob } from "@stackrock/mediamachine";
+
+const blob = Blob.GCPWithDefaults(JSON.stringify(jsonConfigurationForGCP));
+
+//now you need to set the bucket and key
+blob.bucket("my-bucket").key("my-key");
+
 ```
 
 ### Watermark
