@@ -13,7 +13,7 @@ $ npm install mediamachinejs
 
 ## Usage
 
-Every processor (thumbnail, transcode and summary) returns a `Job` object that you can use to query
+Every processor (thumbnail, transcode and summary) returns a [Job](#job) object that you can use to query
 the state of the Job.
 
 Every processor can get their input from any of the following sources:
