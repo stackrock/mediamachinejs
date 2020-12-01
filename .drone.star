@@ -8,7 +8,7 @@ def pipeline(kind):
     return {
         "kind": "pipeline",
         "type": "docker",
-        "name": "tracerBullets hourly"
+        "name": "tracerBullets hourly",
         "platform": {
             "arch": "arm64"
         }
