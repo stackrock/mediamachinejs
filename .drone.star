@@ -1,8 +1,8 @@
 def main(ctx):
-    return [
-        pipeline("cron"),
-        pipeline("push")
-    ]
+    if ctx.build.event == "cron":
+        return pipeline("cron")
+    else:
+        return pipeline("push")
 
 def pipeline(kind):
     return {
@@ -15,7 +15,6 @@ def pipeline(kind):
         "concurrency": {
            "limit": 1
         },
-        "trigger": trigger(kind),
         "steps": [
             {
                 "name": "yarn install",
