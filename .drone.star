@@ -29,7 +29,6 @@ def pipeline(kind):
                 "name": "thumbnail tracerBullet",
                 "pull": "if-not-exists",
                 "image": "arm64v8/node:14.15-alpine",
-                "environment": [],
                 "depends_on": [
                     "yarn install"
                 ],
@@ -67,7 +66,6 @@ def pipeline(kind):
                 "name": "summary tracerBullet",
                 "pull": "if-not-exists",
                 "image": "arm64v8/node:14.15-alpine",
-                "environment": [],
                 "depends_on": [
                     "yarn install"
                 ],
@@ -105,7 +103,6 @@ def pipeline(kind):
                 "name": "transcode tracerBullet",
                 "pull": "if-not-exists",
                 "image": "arm64v8/node:14.15-alpine",
-                "environment": [],
                 "depends_on": [
                     "yarn install"
                 ],
