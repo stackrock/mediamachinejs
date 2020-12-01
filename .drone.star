@@ -166,11 +166,11 @@ def pipeline(kind):
 def trigger(kind):
     if kind == "cron":
         return {
-           branch: ["master"],
-           event: ["cron"],
-           cron: ["hourly"]
+           "branch": ["master"],
+           "event": ["cron"],
+           "cron": ["hourly"]
         }
     else:
         return {
-           branch: ["master"],
+           "branch": ["master"],
         }
