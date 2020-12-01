@@ -34,27 +34,27 @@ def pipeline(kind):
                     "yarn install"
                 ],
                 "environment": [
-                    "STACKROCK_API_KEY": {
+                    {"STACKROCK_API_KEY": {
                         "from_secret": "STACKROCK_API_KEY"
-                    },
-                    "BUCKET": {
+                    }},
+                    {"BUCKET": {
                         "from_secret": "BUCKET"
-                    },
-                    "AWS_REGION": {
+                    }},
+                    {"AWS_REGION": {
                         "from_secret": "AWS_REGION"
-                    },
-                    "AWS_ACCESS_KEY_ID": {
+                    }},
+                    {"AWS_ACCESS_KEY_ID": {
                         "from_secret": "AWS_ACCESS_KEY_ID"
-                    },
-                    "AWS_SECRET_ACCESS_KEY": {
+                    }},
+                    {"AWS_SECRET_ACCESS_KEY": {
                         "from_secret": "AWS_SECRET_ACCESS_KEY"
-                    },
-                    "INPUT_KEY": {
+                    }},
+                    {"INPUT_KEY": {
                         "from_secret": "THUMBNAIL_INPUT_KEY"
-                    },
-                    "OUTPUT_KEY": {
+                    }},
+                    {"OUTPUT_KEY": {
                         "from_secret": "THUMBNAIL_OUTPUT_KEY"
-                    }
+                    }}
                 ],
                 "depends_on": [
                     "yarn install"
@@ -72,27 +72,27 @@ def pipeline(kind):
                     "yarn install"
                 ],
                 "environment": [
-                    "STACKROCK_API_KEY": {
+                    {"STACKROCK_API_KEY": {
                         "from_secret": "STACKROCK_API_KEY"
-                    },
-                    "BUCKET": {
+                    }},
+                    {"BUCKET": {
                         "from_secret": "BUCKET"
-                    },
-                    "AWS_REGION": {
+                    }},
+                    {"AWS_REGION": {
                         "from_secret": "AWS_REGION"
-                    },
-                    "AWS_ACCESS_KEY_ID": {
+                    }},
+                    {"AWS_ACCESS_KEY_ID": {
                         "from_secret": "AWS_ACCESS_KEY_ID"
-                    },
-                    "AWS_SECRET_ACCESS_KEY": {
+                    }},
+                    {"AWS_SECRET_ACCESS_KEY": {
                         "from_secret": "AWS_SECRET_ACCESS_KEY"
-                    },
-                    "INPUT_KEY": {
+                    }},
+                    {"INPUT_KEY": {
                         "from_secret": "SUMMARY_INPUT_KEY"
-                    },
-                    "OUTPUT_KEY": {
+                    }},
+                    {"OUTPUT_KEY": {
                         "from_secret": "SUMMARY_OUTPUT_KEY"
-                    }
+                    }}
                 ],
                 "depends_on": [
                     "yarn install"
@@ -110,27 +110,27 @@ def pipeline(kind):
                     "yarn install"
                 ],
                 "environment": [
-                    "STACKROCK_API_KEY": {
+                    {"STACKROCK_API_KEY": {
                         "from_secret": "STACKROCK_API_KEY"
-                    },
-                    "BUCKET": {
+                    }},
+                    {"BUCKET": {
                         "from_secret": "BUCKET"
-                    },
-                    "AWS_REGION": {
+                    }},
+                    {"AWS_REGION": {
                         "from_secret": "AWS_REGION"
-                    },
-                    "AWS_ACCESS_KEY_ID": {
+                    }},
+                    {"AWS_ACCESS_KEY_ID": {
                         "from_secret": "AWS_ACCESS_KEY_ID"
-                    },
-                    "AWS_SECRET_ACCESS_KEY": {
+                    }},
+                    {"AWS_SECRET_ACCESS_KEY": {
                         "from_secret": "AWS_SECRET_ACCESS_KEY"
-                    },
-                    "INPUT_KEY": {
+                    }},
+                    {"INPUT_KEY": {
                         "from_secret": "TRANSCODE_INPUT_KEY"
-                    },
-                    "OUTPUT_KEY": {
+                    }},
+                    {"OUTPUT_KEY": {
                         "from_secret": "TRANSCODE_OUTPUT_KEY"
-                    }
+                    }}
                 ],
                 "depends_on": [
                     "yarn install"
@@ -144,12 +144,12 @@ def pipeline(kind):
                 "image": "plugins/slack",
                 "pull": "if-not-exists",
                 "settings": [
-                    "webhook": {
+                    {"webhook": {
                         "from_secret": "SLACK_WEBHOOK"
-                    },
-                    "channel": {
+                    }},
+                    {"channel": {
                         "from_secret": "SLACK_CHANNEL"
-                    }
+                    }}
                 ],
                 "when": {
                     "status": ["success", "failure"]
