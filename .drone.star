@@ -11,10 +11,10 @@ def pipeline(kind):
         "name": "tracerBullets hourly",
         "platform": {
             "arch": "arm64"
-        }
+        },
         "concurrency": {
            "limit": 1
-        }
+        },
         "trigger": trigger(kind),
         "steps": [
             {
@@ -168,7 +168,7 @@ def trigger(kind):
         return {
            branch: ["master"],
            event: ["cron"],
-           cron: ["hourly"
+           cron: ["hourly"]
         }
     else:
         return {
