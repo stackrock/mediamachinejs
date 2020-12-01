@@ -1,7 +1,7 @@
 def main(ctx):
     return [
-        pipeline("push"),
-        pipeline("cron")
+        pipeline("cron"),
+        pipeline("push")
     ]
 
 def pipeline(kind):
