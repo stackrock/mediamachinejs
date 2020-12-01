@@ -29,9 +29,6 @@ def pipeline(kind):
                 "name": "thumbnail tracerBullet",
                 "pull": "if-not-exists",
                 "image": "arm64v8/node:14.15-alpine",
-                "depends_on": [
-                    "yarn install"
-                ],
                 "environment": [
                     {"STACKROCK_API_KEY": {
                         "from_secret": "STACKROCK_API_KEY"
@@ -66,9 +63,6 @@ def pipeline(kind):
                 "name": "summary tracerBullet",
                 "pull": "if-not-exists",
                 "image": "arm64v8/node:14.15-alpine",
-                "depends_on": [
-                    "yarn install"
-                ],
                 "environment": [
                     {"STACKROCK_API_KEY": {
                         "from_secret": "STACKROCK_API_KEY"
@@ -103,9 +97,6 @@ def pipeline(kind):
                 "name": "transcode tracerBullet",
                 "pull": "if-not-exists",
                 "image": "arm64v8/node:14.15-alpine",
-                "depends_on": [
-                    "yarn install"
-                ],
                 "environment": [
                     {"STACKROCK_API_KEY": {
                         "from_secret": "STACKROCK_API_KEY"
