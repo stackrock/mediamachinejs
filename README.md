@@ -435,7 +435,7 @@ const job = await transcodeJob.execute();
 
 #### Examples
 
-Creates a new transcode processor job which consumes data from S3 and put the thumbnail on S3.
+Creates a new transcode processor job which consumes data from S3 and put the transcoded video on S3.
 
 ```javascript
 import { Blob, Store, TranscodeJob } from "@stackrock/mediamachine";
@@ -464,7 +464,7 @@ const job = await TranscodeJob.withDefaults()
   .execute();
 ```
 
-Creates a new transcode processor job which consumes data from Google and put the thumbnail on Azures, adding a text watermark to the output and reports the success or failure of the process on two different endpoints.
+Creates a new transcode processor job which consumes data from Google and put the transcoded video on Azure, adding a text watermark to the output and reports the success or failure of the process on two different endpoints.
 
 ```javascript
 import { Blob, Store, TranscodeJob } from "@stackrock/mediamachine";
