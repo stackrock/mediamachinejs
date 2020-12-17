@@ -1,6 +1,6 @@
 # Mediamachine.js
 
-This is the client to connect to [Stackrock](https://stackrock.io)'s services for:
+This is the client to connect to [Stackrock](https://stackrock.io)'s services to:
 
 - Generate a thumbnail from a video
 - Generate a summary from a video
