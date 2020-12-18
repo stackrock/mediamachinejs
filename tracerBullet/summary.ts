@@ -5,7 +5,7 @@
  *  2) To Test our API is running as expected
  */
 
-import { SummaryJob, Blob, Store, JobStatus, SummaryType } from "../src/index"
+import { SummaryJob, Blob, Store, JobStatus, SummaryType } from "../src/index";
 import { sleep } from "./utils";
 
 async function main() {
@@ -18,24 +18,36 @@ async function main() {
   const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
 
   // Create the S3 Input File Blob.
-  const inputFile = Blob.withDefaults().bucket(BUCKET).key(INPUT_KEY).credentials({
-    region: AWS_REGION,
-    accessKeyId: AWS_ACCESS_KEY_ID,
-    secretAccessKey: AWS_SECRET_ACCESS_KEY,
-    type: Store.S3,
-  });
+  const inputFile = Blob.withDefaults()
+    .bucket(BUCKET)
+    .key(INPUT_KEY)
+    .credentials({
+      region: AWS_REGION,
+      accessKeyId: AWS_ACCESS_KEY_ID,
+      secretAccessKey: AWS_SECRET_ACCESS_KEY,
+      type: Store.S3,
+    });
 
   // Create the S3 Output File Blob.
-  const outputFile = Blob.withDefaults().bucket(BUCKET).key(OUTPUT_KEY).credentials({
-    region: AWS_REGION,
-    accessKeyId: AWS_ACCESS_KEY_ID,
-    secretAccessKey: AWS_SECRET_ACCESS_KEY,
-    type: Store.S3,
-  });
+  const outputFile = Blob.withDefaults()
+    .bucket(BUCKET)
+    .key(OUTPUT_KEY)
+    .credentials({
+      region: AWS_REGION,
+      accessKeyId: AWS_ACCESS_KEY_ID,
+      secretAccessKey: AWS_SECRET_ACCESS_KEY,
+      type: Store.S3,
+    });
 
   try {
-    const job = await SummaryJob.withDefaults().apiKey(STACKROCK_API_KEY).type(SummaryType.GIF).from(inputFile)
-    .to(outputFile).width(150).watermarkFromText("stackrock.io").execute();
+    const job = await SummaryJob.withDefaults()
+      .apiKey(STACKROCK_API_KEY)
+      .type(SummaryType.GIF)
+      .from(inputFile)
+      .to(outputFile)
+      .width(150)
+      .watermarkFromText("stackrock.io")
+      .execute();
 
     let status = await job.status();
 
@@ -48,8 +60,9 @@ async function main() {
       console.log("Job finished successfully");
     } else {
       console.log("Job finished with an error");
+      process.exit(1);
     }
-  } catch(err) {
+  } catch (err) {
     console.error(err);
     process.exit(1);
   }
