@@ -60,6 +60,7 @@ async function main() {
       console.log("Job finished successfully");
     } else {
       console.log("Job finished with an error");
+      process.exit(1);
     }
   } catch (err) {
     console.error(err);
