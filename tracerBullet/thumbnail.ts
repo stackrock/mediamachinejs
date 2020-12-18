@@ -55,8 +55,7 @@ async function main() {
       status = await job.status();
     }
 
-    // if (status === JobStatus.done) {
-    if (status === JobStatus.errored) {
+    if (status === JobStatus.done) {
       console.log("Job finished successfully");
     } else {
       console.log("Job finished with an error");
