@@ -507,6 +507,7 @@ const job = await TranscodeJob.withDefaults()
 ### Summary
 
 Creates a new preview in GIF or MP4 format.
+Note: For MP4 video summary, the input video should be more than 15 seconds long.
 
 #### SummaryJob
 
@@ -650,6 +651,7 @@ import { SummaryType } from "@stackrock/mediamachine";
 summaryJob.type(SummaryType.GIF);
 
 // set the output type to be MP4
+// Note: For MP4 video summary, the input video should be more than 15 seconds long.
 summaryJob.type(SummaryType.MP4);
 ```
 
