@@ -16,7 +16,7 @@ export enum JobStatus {
   done,
 }
 
-function includes(arr, elem) {
+function includes(arr: unknown[], elem: unknown) {
   for (const item of arr) {
     if (item === elem) {
       return true;

@@ -26,6 +26,10 @@ async function main() {
   const AWS_REGION = process.env.AWS_REGION;
   const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
   const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
+  console.log("BUCKET: ", BUCKET);
+  console.log("INPUT_KEY: ", INPUT_KEY);
+  console.log("OUTPUT_KEY: ", OUTPUT_KEY);
+  console.log("AWS_REGION: ", AWS_REGION);
 
   // Create the S3 Input File Blob.
   const inputFile = Blob.withDefaults()
