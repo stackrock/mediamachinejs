@@ -14,63 +14,44 @@ export interface WatermarkImage {
   height?: number;
 }
 
-export class Watermark {
-  watermarkText?: string;
-  watermarkImage?: WatermarkImage;
-  watermarkFontSize?: number;
-  watermarkFontColor?: string;
-  watermarkOpacity?: number;
-  watermarkPosition: Position;
+ export interface WatermarkOptions {
+  text?: string;
+  image?: WatermarkImage;
+  fontSize?: number;
+  fontColor?: string;
+  opacity?: number;
+  position?: Position;
+ }
 
-  constructor() {}
+export class Watermark implements WatermarkOptions {
+  text?: string;
+  image?: WatermarkImage;
+  fontSize?: number;
+  fontColor?: string;
+  opacity?: number;
+  position: Position;
 
-  static withDefaults() {
-    const w = new Watermark();
-    w.watermarkFontSize = 12;
-    w.watermarkFontColor = "white";
-    w.watermarkPosition = Position.BOTTOM_RIGHT;
-    w.watermarkOpacity = 0.9;
-    return w;
-  }
-
-  text(text: string): Watermark {
-    this.watermarkText = text;
-    return this;
-  }
-
-  image(image: WatermarkImage): Watermark {
-    this.watermarkImage = image;
-    return this;
-  }
-
-  fontSize(fontSize: number): Watermark {
-    this.watermarkFontSize = fontSize;
-    return this;
-  }
-
-  fontColor(fontColor: string): Watermark {
-    this.watermarkFontColor = fontColor;
-    return this;
-  }
-
-  opacity(opacity: number): Watermark {
-    this.watermarkOpacity = opacity;
-    return this;
-  }
-
-  position(position: Position): Watermark {
-    this.watermarkPosition = position;
-    return this;
+  constructor(opts: WatermarkOptions = {}) {
+    this.text = opts.text;
+    this.image = opts.image;
+    this.fontSize = opts.fontSize || 12;
+    this.fontColor = opts.fontColor || "white";
+    this.position = opts.position || Position.BOTTOM_RIGHT;
+    if (opts.opacity === 0) {
+      this.opacity = 0;
+    } else {
+      this.opacity = opts.opacity || 0.9;
+    }
   }
 
   toJSON() {
     const ret = {
-      fontSize: `${this.watermarkFontSize}`,
-      text: this.watermarkText,
-      image: this.watermarkImage,
-      fontColor: this.watermarkFontColor,
-      opacity: `${this.watermarkOpacity}`,
-      position: this.watermarkPosition,
+      fontSize: `${this.fontSize}`,
+      text: this.text,
+      image: this.image,
+      fontColor: this.fontColor,
+      opacity: `${this.opacity}`,
+      position: this.position,
     };
 
     return removeUndefinedFromObj(ret);

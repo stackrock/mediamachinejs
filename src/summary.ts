@@ -67,7 +67,7 @@ export class SummaryJob {
   }
 
   watermarkFromText(text: string): SummaryJob {
-    const watermark = Watermark.withDefaults().text(text);
+    const watermark = new Watermark({text});
 
     this.summaryWatermark = watermark;
     return this;
