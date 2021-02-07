@@ -40,10 +40,13 @@ const FAKE_AZURE_BLOB = Blob.withDefaults()
   })
   .bucket("test-bucket")
   .key("test-key");
-const FAKE_IMAGE_WATERMARK = Watermark.withDefaults().image({
+const FAKE_IMAGE_WATERMARK = new Watermark({
+image: {
   height: 200,
   width: 400,
   path: "http://path.com/to/your/image",
+}
+
 });
 
 describe("Mediamachine", () => {

@@ -57,7 +57,6 @@ async function main() {
     .encoder(Encoder.H264)
     .bitrateKbps(Bitrate.FOUR_MEGAKBPS)
     .container(Container.MP4)
-    .videoSize(VideoSize.HD);
 
   try {
     const job = await TranscodeJob.withDefaults()

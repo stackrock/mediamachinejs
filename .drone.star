@@ -55,7 +55,7 @@ def pipeline(kind):
                     "yarn install"
                 ],
                 "commands": [
-                    "./node_modules/.bin/ts-node tracerBullet/thumbnail.ts"
+                    "./node_modules/.bin/ts-node tracerBullet/newthumbnail.ts"
                 ]
             },
             {
@@ -89,7 +89,7 @@ def pipeline(kind):
                     "yarn install"
                 ],
                 "commands": [
-                    "./node_modules/.bin/ts-node tracerBullet/summary.ts"
+                    "./node_modules/.bin/ts-node tracerBullet/newsummary.ts"
                 ]
             },
             {
@@ -123,7 +123,7 @@ def pipeline(kind):
                     "yarn install"
                 ],
                 "commands": [
-                    "./node_modules/.bin/ts-node tracerBullet/transcode.ts"
+                    "./node_modules/.bin/ts-node tracerBullet/newtranscode.ts"
                 ]
             },
             {

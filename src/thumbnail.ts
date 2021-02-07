@@ -4,8 +4,9 @@ import { Watermark } from "./watermark";
 import { Blob } from "./blob";
 import { Webhooks } from "./webhooks";
 import { Job } from "./job";
+import { Executable } from "./Executable";
 
-export class ThumbnailJob {
+export class ThumbnailJob implements Executable {
   apikey: string;
   successUrl?: string;
   failureUrl?: string;
@@ -16,7 +17,8 @@ export class ThumbnailJob {
   thumbWidth?: number;
   thumbWatermark?: Watermark;
 
-  constructor() {}
+  constructor() {
+  }
 
   static withDefaults(): ThumbnailJob {
     const tj = new ThumbnailJob();
@@ -60,8 +62,7 @@ export class ThumbnailJob {
   }
 
   watermarkFromText(text: string): ThumbnailJob {
-    const watermark = Watermark.withDefaults().text(text);
-
+    const watermark = new Watermark({text})
     this.thumbWatermark = watermark;
     return this;
   }
