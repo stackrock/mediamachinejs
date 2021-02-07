@@ -4,13 +4,14 @@ import { Watermark } from "./watermark";
 import { Blob } from "./blob";
 import { Job } from "./job";
 import { Webhooks } from "./webhooks";
+import { Executable } from "./Executable";
 
 export enum SummaryType {
   MP4 = "mp4",
   GIF = "gif",
 }
 
-export class SummaryJob {
+export class SummaryJob implements Executable {
   apikey: string;
   successUrl?: string;
   failureUrl?: string;
