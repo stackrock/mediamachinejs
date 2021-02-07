@@ -226,6 +226,8 @@ class Summarizer extends WorkerConfig<SummaryOptions, SummaryTarget> {
       config = config.width(150);
     }
 
+    config = config.type(options.format ? options.format : SummaryType.MP4); 
+
     if (options.watermarkFromText) {
       config = config.watermarkFromText(options.watermarkFromText);
     }
