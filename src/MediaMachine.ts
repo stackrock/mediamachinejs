@@ -163,7 +163,7 @@ class Thumbnailer extends WorkerConfig<ThumbnailOptions, ThumbnailTarget> {
   constructor (apiKey: string, opts: ThumbnailOptions) {
     super(apiKey, opts, ThumbnailTarget);
   }
-  async getConfig (fromConfig: string | Blob, outputFile: string | Blob) {
+  getConfig (fromConfig: string | Blob, outputFile: string | Blob) {
     
     const options = this.options;
 
@@ -188,8 +188,7 @@ class Thumbnailer extends WorkerConfig<ThumbnailOptions, ThumbnailTarget> {
       config = config.watermark(options.watermark);
     }
 
-    const job = await config.execute();
-    return job;
+    return config;
   }
 }
 
@@ -215,7 +214,7 @@ class Summarizer extends WorkerConfig<SummaryOptions, SummaryTarget> {
   constructor (apiKey: string, opts: SummaryOptions) {
     super(apiKey, opts, SummaryTarget);
   }
-  async getConfig (fromConfig: string | Blob, outputFile: string | Blob) {
+  getConfig (fromConfig: string | Blob, outputFile: string | Blob) {
     const options = this.options;
 
     let config = SummaryJob.withDefaults()

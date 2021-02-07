@@ -1,5 +1,6 @@
 import { Store } from ".";
 import { Blob } from "./blob";
+import { Executable } from "./Executable";
 import { Newable } from "./Newable";
 
 export class WorkerConfig<T, U> {
@@ -14,7 +15,7 @@ export class WorkerConfig<T, U> {
     this.targetKlass = targetKlass;
   }
 
-  getConfig (from: string | Blob, to: string | Blob): any {
+  getConfig (from: string | Blob, to: string | Blob): Executable {
     return;
   }
 
