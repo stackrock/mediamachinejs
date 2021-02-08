@@ -33,12 +33,12 @@ async function main() {
 
     let status = await job.status();
 
-    while (status === JobStatus.queued) {
+    while (status === "queued") {
       await sleep(2);
       status = await job.status();
     }
 
-    if (status === JobStatus.done) {
+    if (status === "done") {
       console.log("Job finished successfully");
     } else {
       console.log("Job finished with an error");

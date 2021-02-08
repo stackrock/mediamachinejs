@@ -42,12 +42,12 @@ async function main() {
     .toS3(AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, BUCKET, OUTPUT_KEY)
     let status = await job.status();
 
-    while (status === JobStatus.queued) {
+    while (status === "queued") {
       await sleep(2);
       status = await job.status();
     }
 
-    if (status === JobStatus.done) {
+    if (status === "done") {
       console.log("Job finished successfully");
     } else {
       console.log("Job finished with an error");
