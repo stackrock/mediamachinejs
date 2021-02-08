@@ -213,6 +213,7 @@ A Job object is what's ultimately returned from your request.  You can query the
 
 The possible states for the job are:
 
+- `notStarted` (The job has not been started at all).
 - `queued` (The job is waiting to be executed).
 - `done` (The job has finished successfully)
 - `errored` (The job failed)
@@ -223,11 +224,6 @@ To get the status you can do:
 await job.status();
 ```
 
-this method returns a `JobStatus` value that can be one of:
-
-- `JobStatus.queued`
-- `JobStatus.errored`
-- `JobStatus.done`
 
 ## Watermarking
 

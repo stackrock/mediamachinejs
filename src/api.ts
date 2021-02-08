@@ -9,12 +9,7 @@ const SERVICES_TO_PATH = {
   transcode: "/transcode",
 };
 
-export enum JobStatus {
-  notStarted,
-  queued,
-  errored,
-  done,
-}
+export type JobStatus = "notStarted" |  "queued" | "errored" | "done";
 
 function includes(arr: unknown[], elem: unknown) {
   for (const item of arr) {
@@ -47,19 +42,19 @@ export class API {
     const res = await axios.get(uri);
 
     if (res.status === 404) {
-      return JobStatus.notStarted;
+      return "notStarted";
     }
 
     if (res.status === 200) {
       if (res.data.status === "errored") {
-        return JobStatus.errored;
+        return "errored";
       } else if (res.data.status === "done") {
-        return JobStatus.done;
+        return "done";
       } else if (res.data.status === "queued") {
-        return JobStatus.queued;
+        return "queued";
       }
     }
 
-    return JobStatus.notStarted;
+    return "notStarted";
   }
 }
