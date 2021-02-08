@@ -61,12 +61,6 @@ export class ThumbnailJob implements Executable {
     return this;
   }
 
-  watermarkFromText(text: string): ThumbnailJob {
-    const watermark = new Watermark({text})
-    this.thumbWatermark = watermark;
-    return this;
-  }
-
   width(width: number): ThumbnailJob {
     this.thumbWidth = width;
     return this;

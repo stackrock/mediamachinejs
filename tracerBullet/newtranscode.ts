@@ -36,7 +36,7 @@ async function main() {
       container: Container.MP4,
       height: 300,
       width: 150,
-      watermarkFromText: "stackrock.io",
+      watermark: mediaMachine.textWatermark("stackrock.io"),
     })
     .fromS3(AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, BUCKET, INPUT_KEY)
     .toS3(AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, BUCKET, OUTPUT_KEY)
