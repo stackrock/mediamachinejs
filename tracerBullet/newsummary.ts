@@ -33,7 +33,7 @@ async function main() {
 
     const job = await mediaMachine.summary({
       width: 150,
-      watermarkFromText: "stackrock.io",
+      watermark: mediaMachine.textWatermark("stackrock.io"),
       format: SummaryType.GIF,
     })
     .fromS3(AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, BUCKET, INPUT_KEY)

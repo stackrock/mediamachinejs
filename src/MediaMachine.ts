@@ -1,10 +1,10 @@
-import { Watermark, WatermarkOptions } from "./watermark";
 import { ThumbnailJob } from "./thumbnail";
 import { Blob, Store } from "./blob";
 import { Bitrate, Container, Encoder, TranscodeJob, TranscodeOpts } from "./transcode";
 import { SummaryJob, SummaryType } from "./summary";
 import { parseApiKey } from "./utils";
 import { WorkerConfig } from "./WorkerConfig";
+import { ImageWatermark, ImageWatermarkOptions, TextWatermark, TextWatermarkOptions, Watermark } from "./watermark";
 
 class WorkerTarget<T extends WorkerConfig<any, any>> {
   workerConfig: T;
@@ -82,7 +82,6 @@ class TranscodeTarget extends WorkerTarget<Transcoder> {
 
 interface TranscodeOptions {
   width?: number;
-  watermarkFromText?: string;
   watermark?: Watermark;
   encoder: Encoder;
   bitrateKbps: Bitrate;
@@ -122,14 +121,10 @@ class Transcoder extends WorkerConfig<TranscodeOptions, TranscodeTarget> {
       .opts(opts)
 
     if (options.width) {
-      config = config.width(150);
+      config = config.width(options.width);
     }
     if (options.height) {
-      config = config.height(150);
-    }
-
-    if (options.watermarkFromText) {
-      config = config.watermarkFromText(options.watermarkFromText);
+      config = config.height(options.height);
     }
 
     if (options.watermark) {
@@ -143,7 +138,7 @@ class Transcoder extends WorkerConfig<TranscodeOptions, TranscodeTarget> {
 
 interface ThumbnailOptions {
   width?: number;
-  watermarkFromText?: string;
+  watermarkText?: string;
   watermark?: Watermark;
   successUrl?: string;
   failureUrl?: string;
@@ -180,10 +175,6 @@ class Thumbnailer extends WorkerConfig<ThumbnailOptions, ThumbnailTarget> {
       config = config.width(150);
     }
 
-    if (options.watermarkFromText) {
-      config = config.watermarkFromText(options.watermarkFromText);
-    }
-
     if (options.watermark) {
       config = config.watermark(options.watermark);
     }
@@ -195,7 +186,6 @@ class Thumbnailer extends WorkerConfig<ThumbnailOptions, ThumbnailTarget> {
 interface SummaryOptions {
   width?: number;
   watermark?: Watermark;
-  watermarkFromText?: string;
   format?: SummaryType;
   removeAudio?: boolean;
 }
@@ -228,9 +218,6 @@ class Summarizer extends WorkerConfig<SummaryOptions, SummaryTarget> {
 
     config = config.type(options.format ? options.format : SummaryType.MP4); 
 
-    if (options.watermarkFromText) {
-      config = config.watermarkFromText(options.watermarkFromText);
-    }
     if (options.watermark) {
       config = config.watermark(options.watermark);
     }
@@ -267,8 +254,12 @@ export class MediaMachine {
     return new Summarizer(this.apiKey, opts);
   }
 
-  watermark (opts: WatermarkOptions = {}) {
-    return new Watermark(opts);
+  textWatermark (text: string, opts: TextWatermarkOptions = {}) {
+    opts.text = text;
+    return new TextWatermark(opts);
+  }
+  imageWatermark (opts: ImageWatermarkOptions = {}) {
+    return new ImageWatermark(opts);
   }
 }
 

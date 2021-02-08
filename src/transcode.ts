@@ -87,12 +87,6 @@ export class TranscodeJob implements Executable {
     return this;
   }
 
-  watermarkFromText(text: string): TranscodeJob {
-    const watermark = new Watermark({text})
-    this.transcodeWatermark = watermark;
-    return this;
-  }
-
   width(value: number): TranscodeJob {
     this.transcodeWidth = value;
     return this;

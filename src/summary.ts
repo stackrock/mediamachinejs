@@ -1,10 +1,10 @@
 import { API } from "./api";
 import { removeUndefinedFromObj } from "./utils";
-import { Watermark } from "./watermark";
 import { Blob } from "./blob";
 import { Job } from "./job";
 import { Webhooks } from "./webhooks";
 import { Executable } from "./Executable";
+import { ImageWatermark, TextWatermark, Watermark } from "./watermark";
 
 export enum SummaryType {
   MP4 = "mp4",
@@ -63,13 +63,6 @@ export class SummaryJob implements Executable {
   }
 
   watermark(watermark: Watermark): SummaryJob {
-    this.summaryWatermark = watermark;
-    return this;
-  }
-
-  watermarkFromText(text: string): SummaryJob {
-    const watermark = new Watermark({text});
-
     this.summaryWatermark = watermark;
     return this;
   }

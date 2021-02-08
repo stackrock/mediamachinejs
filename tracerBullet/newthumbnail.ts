@@ -5,7 +5,7 @@
  *  2) To Test our API is running as expected
  */
 
-import { ThumbnailJob, Blob, Store, JobStatus } from "../src/index";
+import { JobStatus } from "../src/index";
 import { MediaMachine } from "../src/MediaMachine";
 import { sleep } from "./utils";
 require('dotenv').config();
@@ -26,7 +26,7 @@ async function main() {
   try {
     const job = await mediaMachine.thumbnail({
       width: 150,
-      watermarkFromText: "stackrock.io",
+      watermarkText: "stackrock.io",
     })
     .fromS3(AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, BUCKET, INPUT_KEY)
     .toS3(AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, BUCKET, OUTPUT_KEY)
