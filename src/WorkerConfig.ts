@@ -3,19 +3,17 @@ import { Blob } from "./blob";
 import { Executable } from "./Executable";
 import { Newable } from "./Newable";
 
-export class WorkerConfig<T, U> {
+export class WorkerConfig<U> {
 
   apiKey: string;
-  options: T;
   targetKlass: any;
 
-  constructor (apiKey: string, opts: T, targetKlass: Newable<U>) {
+  constructor (apiKey: string, targetKlass: Newable<U>) {
     this.apiKey = apiKey;
-    this.options = opts;
     this.targetKlass = targetKlass;
   }
 
-  getConfig (from: string | Blob, to: string | Blob): Executable {
+  getExecutable (from: string | Blob): Executable {
     return;
   }
 
@@ -30,7 +28,8 @@ export class WorkerConfig<T, U> {
         type: Store.S3,
       });
     const Target = this.targetKlass;
-    return new Target(this, inputFile); 
+    const executable = this.getExecutable(inputFile);
+    return new Target(executable, inputFile); 
   }
 
   fromAzure (accountKey: string, accountName: string, bucket: string, inputKey: string) {

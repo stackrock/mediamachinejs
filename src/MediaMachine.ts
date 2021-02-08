@@ -1,81 +1,21 @@
 import { ThumbnailJob } from "./thumbnail";
-import { Blob, Store } from "./blob";
+import { Blob } from "./blob";
 import { Bitrate, Container, Encoder, TranscodeJob, TranscodeOpts } from "./transcode";
 import { SummaryJob, SummaryType } from "./summary";
 import { parseApiKey } from "./utils";
 import { WorkerConfig } from "./WorkerConfig";
 import { ImageWatermark, ImageWatermarkOptions, TextWatermark, TextWatermarkOptions, Watermark } from "./watermark";
-
-class WorkerTarget<T extends WorkerConfig<any, any>> {
-  workerConfig: T;
-  fromConfig: Blob | string;
-
-  constructor (transcoder: T, fromConfig: Blob | string) {
-    this.workerConfig = transcoder;
-    this.fromConfig = fromConfig;
-  }
-
-  async toAzure (accountKey: string, accountName: string, bucket: string, inputKey: string) {
-    
-    // create the output blob
-    const outputFile = Blob.withDefaults()
-      .bucket(bucket)
-      .key(inputKey)
-      .credentials({
-        accountKey,
-        accountName,
-        type: Store.AZURE_BLOB,
-      });
-
-    const config = this.workerConfig.getConfig(this.fromConfig, outputFile);
-    const job = await config.execute();
-    return job;
-  }
-
-  async toGCloud (json: string, bucket: string, inputKey: string) {
-    
-    // create the output blob
-    const outputFile = Blob.withDefaults()
-      .bucket(bucket)
-      .key(inputKey)
-      .credentials({
-        json,
-        type: Store.GOOGLE_BLOB,
-      });
-
-    const config = this.workerConfig.getConfig(this.fromConfig, outputFile);
-    const job = await config.execute();
-    return job;
-  }
-
-  async toS3 (region: string, accessKeyId: string, secretAccessKey: string, bucket: string, inputKey: string) {
-    
-    // create the output blob
-    const outputFile = Blob.withDefaults()
-      .bucket(bucket)
-      .key(inputKey)
-      .credentials({
-        region,
-        accessKeyId,
-        secretAccessKey,
-        type: Store.S3,
-      });
-
-    const config = this.workerConfig.getConfig(this.fromConfig, outputFile);
-    const job = await config.execute();
-    return job;
-  }
-}
+import { Executable } from "./Executable";
+import { WorkerTarget } from "./WorkerTarget";
 
 
 // transcoding
 
-class TranscodeTarget extends WorkerTarget<Transcoder> {
-  workerConfig: Transcoder;
-  fromConfig: Blob | string;
+class TranscodeTarget extends WorkerTarget<TranscodeJob> {
+  workerConfig: TranscodeJob;
 
-  constructor (transcoder: Transcoder, fromConfig: Blob | string) {
-    super(transcoder, fromConfig);
+  constructor (transcoder: TranscodeJob) {
+    super(transcoder);
   }
 
 }
@@ -91,13 +31,16 @@ interface TranscodeOptions {
   failureUrl?: string;
 }
 
-class Transcoder extends WorkerConfig<TranscodeOptions, TranscodeTarget> {
+class Transcoder extends WorkerConfig<TranscodeTarget> {
+
+  options: TranscodeOptions;
 
   constructor (apiKey: string, opts: TranscodeOptions) {
-    super(apiKey, opts, TranscodeTarget);
+    super(apiKey, TranscodeTarget);
+    this.options = opts;
   }
 
-  getConfig (fromConfig: string | Blob, outputFile: string | Blob) {
+  getExecutable (fromConfig: string | Blob) {
     const opts = TranscodeOpts.withDefaults();
     const options = this.options;
     if (options.bitrateKbps) {
@@ -117,7 +60,6 @@ class Transcoder extends WorkerConfig<TranscodeOptions, TranscodeTarget> {
         successUrl: options.successUrl,
         failureUrl: options.failureUrl,
       })
-      .to(outputFile)
       .opts(opts)
 
     if (options.width) {
@@ -144,21 +86,25 @@ interface ThumbnailOptions {
   failureUrl?: string;
 }
 
-class ThumbnailTarget extends WorkerTarget<Thumbnailer> {
+class ThumbnailTarget extends WorkerTarget<ThumbnailJob> {
   thumbnailer: Thumbnailer;
   inputBlob: Blob;
 
-  constructor (thumbnailer: Thumbnailer, inputBlob: Blob) {
-    super(thumbnailer, inputBlob);
+  constructor (thumbnailer: ThumbnailJob) {
+    super(thumbnailer);
   }
 
 }
 
-class Thumbnailer extends WorkerConfig<ThumbnailOptions, ThumbnailTarget> {
-  constructor (apiKey: string, opts: ThumbnailOptions) {
-    super(apiKey, opts, ThumbnailTarget);
+class Thumbnailer extends WorkerConfig<ThumbnailTarget> {
+
+  options: ThumbnailOptions
+
+  constructor (apiKey: string, options: ThumbnailOptions) {
+    super(apiKey, ThumbnailTarget);
+    this.options = options;
   }
-  getConfig (fromConfig: string | Blob, outputFile: string | Blob) {
+  getExecutable (fromConfig: string | Blob) {
     
     const options = this.options;
 
@@ -169,7 +115,6 @@ class Thumbnailer extends WorkerConfig<ThumbnailOptions, ThumbnailTarget> {
         successUrl: options.successUrl,
         failureUrl: options.failureUrl,
       })
-      .to(outputFile)
 
     if (options.width) {
       config = config.width(150);
@@ -190,27 +135,29 @@ interface SummaryOptions {
   removeAudio?: boolean;
 }
 
-class SummaryTarget extends WorkerTarget<Summarizer> {
+class SummaryTarget extends WorkerTarget<SummaryJob> {
   summarizer: Summarizer;
-  inputBlob: Blob;
 
-  constructor (summarizer: Summarizer, inputBlob: Blob) {
-    super(summarizer, inputBlob);
+  constructor (summarizer: SummaryJob) {
+    super(summarizer);
   }
 
 }
 
-class Summarizer extends WorkerConfig<SummaryOptions, SummaryTarget> {
+class Summarizer extends WorkerConfig<SummaryTarget> {
+
+  options: SummaryOptions;
+
   constructor (apiKey: string, opts: SummaryOptions) {
-    super(apiKey, opts, SummaryTarget);
+    super(apiKey, SummaryTarget);
+    this.options = opts;
   }
-  getConfig (fromConfig: string | Blob, outputFile: string | Blob) {
+  getExecutable (fromConfig: string | Blob): Executable {
     const options = this.options;
 
     let config = SummaryJob.withDefaults()
       .apiKey(this.apiKey)
       .from(fromConfig)
-      .to(outputFile)
 
     if (options.width) {
       config = config.width(150);

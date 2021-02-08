@@ -47,7 +47,7 @@ The `thumbnail()` method uses a smart algorithm to automatically choose the best
 This method takes a single argument of the following optional inputs:
 
   * `width` : number representing the desired width of the thumbnail (default: 720 px).
-  * `watermark` : a Watermark object to use for the image's watermark.
+  * `watermark` : a [Watermark](#Watermarking) object to use for the image's watermark.
   * `successUrl` : a url for StackRock to POST to when the thumbnail has been created.
   * `failureUrl` : a url for StackRock to POST to when the thumbnail has been created.
 
@@ -72,7 +72,7 @@ Here's an example usage that takes a video from Amazon S3 and puts a thumbnail b
     .toS3(AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, BUCKET, OUTPUT_KEY);
 ```
 
-Here's an example usage that takes a video from Azure and puts a thumbnail back to Azure with a full watermark configuration:  
+Here's an example usage that takes a video from Azure and puts a thumbnail back to Azure with a full [watermark](#watermark()) configuration:  
 
 ```javascript
     const watermark = mediaMachine.watermark({
@@ -99,7 +99,7 @@ This method takes a single argument of the following optional inputs:
 
   * `height` : number representing the desired height of the video output.
   * `width` : number representing the desired width of the video output.
-  * `watermark` : a Watermark object to use for the image's watermark.
+  * `watermark` : a [Watermark](#Watermarking) object to use for the image's watermark.
   * `encoder` : "h264", "h265", or "vp8"
   * `bitrateKbps` : "8000", "4000", or "1000"
   * `container` : "mp4", "webm"
@@ -158,7 +158,7 @@ Note: For MP4 video summary, the input video should be more than 15 seconds long
 This method takes a single argument of the following optional inputs:
 
   * `width` : number representing the desired width of the video output.
-  * `watermark` : a Watermark object to use for the image's watermark.
+  * `watermark` : a [Watermark](#Watermarking) object to use for the image's watermark.
   * `format` : "mp4", "gif" -- the output format you want
   * `removeAudio` : a boolean to indicate whether to remove audio (default: false, applies only to mp4s)
   * `successUrl` : a url for StackRock to POST to when the thumbnail has been created.
@@ -209,7 +209,7 @@ Here's an example usage that takes a video from Amazond S3 and puts a thumbnail 
 
 ### Job
 
-A Job object represent a processor job, you can query at any time the state of the job with the `status()` method.
+A Job object is what's ultimately returned from your request.  You can query the job's status at any time with the `status()` method.
 
 The possible states for the job are:
 
@@ -229,11 +229,17 @@ this method returns a `JobStatus` value that can be one of:
 - `JobStatus.errored`
 - `JobStatus.done`
 
-### textWatermark()
+## Watermarking
 
-An text watermark is a text-based image that is laid over another image or video, usually to add branding to it.
+A watermark is an image that is laid over another image or video, usually to add branding to it.
 
 You can configure watermarking for any/all of your summary(), thumbnail(), and transcode() calls by first creating a watermark, and then supplying it in the optional arguments to `summary()`, `thumbnail()` or `transcode()` as the `watermark` parameter.
+
+There are two types of watermarks:
+* text watermarks where you supply and configure some text to be the watermark.  ( see [textWatermark()](#textWatermark()) ) 
+* image watermarks where you supply and configure an image to be the watermark ( see [imageWatermark()](#imageWatermark()) ).
+
+### textWatermark()
 
 The textWatermark method takes a single argument of the following optional inputs:
 
