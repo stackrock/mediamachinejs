@@ -10,6 +10,7 @@ export enum Encoder {
   H264 = "h264",
   H265 = "h265",
   VP8 = "vp8",
+  VP9 = "vp9",
 }
 
 export enum Bitrate {

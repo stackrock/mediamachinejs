@@ -30,10 +30,8 @@ async function main() {
 
   try {
 
-    const job = await mediaMachine.transcode({
+    const job = await mediaMachine.transcodeToMp4({
       encoder: Encoder.H264,
-      bitrateKbps: Bitrate.FOUR_MEGAKBPS,
-      container: Container.MP4,
       height: 300,
       width: 150,
       watermark: mediaMachine.textWatermark("stackrock.io"),
