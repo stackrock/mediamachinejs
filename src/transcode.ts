@@ -4,11 +4,13 @@ import { Blob } from "./blob";
 import { Watermark } from "./watermark";
 import { Job } from "./job";
 import { Webhooks } from "./webhooks";
+import { Executable } from "./Executable";
 
 export enum Encoder {
   H264 = "h264",
   H265 = "h265",
   VP8 = "vp8",
+  VP9 = "vp9",
 }
 
 export enum Bitrate {
@@ -28,7 +30,8 @@ export enum VideoSize {
   SD = "480",
 }
 
-export class TranscodeJob {
+
+export class TranscodeJob implements Executable {
   apikey: string;
   successUrl?: string;
   failureUrl?: string;
@@ -37,10 +40,12 @@ export class TranscodeJob {
   outputUrl?: string;
   outputBlob?: Blob;
   transcodeWidth?: number;
+  transcodeHeight?: number;
   transcodeWatermark?: Watermark;
   transcodeOpts: TranscodeOpts;
 
-  constructor() {}
+  constructor() {
+  }
 
   static withDefaults() {
     const tj = new TranscodeJob();
@@ -83,17 +88,16 @@ export class TranscodeJob {
     return this;
   }
 
-  watermarkFromText(text: string): TranscodeJob {
-    const watermark = Watermark.withDefaults().text(text);
-
-    this.transcodeWatermark = watermark;
-    return this;
-  }
-
   width(value: number): TranscodeJob {
     this.transcodeWidth = value;
     return this;
   }
+
+  height(value: number): TranscodeJob {
+    this.transcodeHeight = value;
+    return this;
+  }
+
 
   opts(value: TranscodeOpts): TranscodeJob {
     this.transcodeOpts = value;
@@ -133,6 +137,7 @@ export class TranscodeJob {
       outputURL: this.outputUrl,
       outputBlob: this.outputBlob?.toJSON(),
       width: `${this.transcodeWidth}`,
+      height: `${this.transcodeHeight}`,
       watermark: this.transcodeWatermark?.toJSON(),
       transcode: this.transcodeOpts?.toJSON(),
     };
@@ -144,20 +149,30 @@ export class TranscodeJob {
   }
 }
 
-export class TranscodeOpts {
+export class OptionBuilder {
+  toJSON () {
+    return {};
+  }
+
+  static withDefaults() {
+    throw new Error(`not implemented`);
+  }
+}
+
+export class TranscodeOpts extends OptionBuilder {
   transcoderEncoder: Encoder;
   transcoderBitrateKbps: Bitrate;
   transcoderContainer: Container;
-  transcoderVideoSize: VideoSize;
 
-  constructor() {}
+  constructor() {
+    super();
+  }
 
   static withDefaults() {
     const to = new TranscodeOpts();
     to.transcoderEncoder = Encoder.H264;
     to.transcoderBitrateKbps = Bitrate.FOUR_MEGAKBPS;
     to.transcoderContainer = Container.MP4;
-    to.transcoderVideoSize = VideoSize.HD;
     return to;
   }
 
@@ -176,17 +191,11 @@ export class TranscodeOpts {
     return this;
   }
 
-  videoSize(value: VideoSize): TranscodeOpts {
-    this.transcoderVideoSize = value;
-    return this;
-  }
-
   toJSON() {
     return {
       encoder: this.transcoderEncoder,
       bitrateKbps: this.transcoderBitrateKbps,
       container: this.transcoderContainer,
-      videoSize: this.transcoderVideoSize,
     };
   }
 }

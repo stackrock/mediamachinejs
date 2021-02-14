@@ -8,8 +8,8 @@ import {
   ThumbnailJob,
   TranscodeJob,
   TranscodeOpts,
-  Watermark,
 } from "./index";
+import { ImageWatermark, TextWatermark } from "./watermark";
 
 const FAKE_SUCCESS_URL = "http://stackrock.io/success";
 const FAKE_FAILURE_URL = "http://stackrock.io/failure";
@@ -40,11 +40,12 @@ const FAKE_AZURE_BLOB = Blob.withDefaults()
   })
   .bucket("test-bucket")
   .key("test-key");
-const FAKE_IMAGE_WATERMARK = Watermark.withDefaults().image({
+const FAKE_IMAGE_WATERMARK = new ImageWatermark({
   height: 200,
   width: 400,
-  path: "http://path.com/to/your/image",
+  url: "http://path.com/to/your/image",
 });
+const textWatermark = new TextWatermark({text: "stackrock.io"});
 
 describe("Mediamachine", () => {
   describe("thumbnail", () => {
@@ -115,7 +116,7 @@ describe("Mediamachine", () => {
           })
           .from(FAKE_INPUT_URL)
           .to(FAKE_OUTPUT_URL)
-          .watermarkFromText("stackrock.io")
+          .watermark(textWatermark)
           .width(150)
           .execute()
       ).resolves.toEqual(retData);
@@ -570,7 +571,7 @@ describe("Mediamachine", () => {
           })
           .from(FAKE_INPUT_URL)
           .to(FAKE_OUTPUT_URL)
-          .watermarkFromText("stackrock.io")
+          .watermark(textWatermark)
           .width(150)
           .type(SummaryType.GIF)
           .execute()
@@ -1005,7 +1006,7 @@ describe("Mediamachine", () => {
           })
           .from(FAKE_INPUT_URL)
           .to(FAKE_OUTPUT_URL)
-          .watermarkFromText("stackrock.io")
+          .watermark(textWatermark)
           .width(150)
           .type(SummaryType.MP4)
           .execute()
@@ -1447,7 +1448,7 @@ describe("Mediamachine", () => {
           })
           .from(FAKE_INPUT_URL)
           .to(FAKE_OUTPUT_URL)
-          .watermarkFromText("stackrock.io")
+          .watermark(textWatermark)
           .width(150)
           .opts(FAKE_TRANSCODE_OPTS)
           .execute()

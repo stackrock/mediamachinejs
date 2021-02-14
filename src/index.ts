@@ -17,6 +17,6 @@ export {
   Credentials,
   Store,
 } from "./blob";
-export { Watermark, WatermarkImage, Position } from "./watermark";
+export { WatermarkImage, Position, Watermark } from "./watermark";
 export { Webhooks } from "./webhooks";
 export { JobStatus } from "./api";

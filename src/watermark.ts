@@ -7,6 +7,8 @@ export enum Position {
   BOTTOM_RIGHT = "bottomRight",
 }
 
+export type Watermark = TextWatermark | ImageWatermark;
+
 export interface WatermarkImage {
   path?: string;
   image_name?: string;
@@ -14,63 +16,93 @@ export interface WatermarkImage {
   height?: number;
 }
 
-export class Watermark {
-  watermarkText?: string;
-  watermarkImage?: WatermarkImage;
-  watermarkFontSize?: number;
-  watermarkFontColor?: string;
-  watermarkOpacity?: number;
-  watermarkPosition: Position;
+ export interface TextWatermarkOptions {
+  text?: string;
+  fontSize?: number;
+  fontColor?: string;
+  opacity?: number;
+  position?: Position;
+ }
 
-  constructor() {}
+ export interface ImageWatermarkOptions {
+  url?: string;
+  uploaded_image_name?: string;
+  width?: number;
+  height?: number;
+  opacity?: number;
+  position?: Position;
+ }
 
-  static withDefaults() {
-    const w = new Watermark();
-    w.watermarkFontSize = 12;
-    w.watermarkFontColor = "white";
-    w.watermarkPosition = Position.BOTTOM_RIGHT;
-    w.watermarkOpacity = 0.9;
-    return w;
-  }
+export class ImageWatermark implements ImageWatermarkOptions {
+  path?: string;
+  image_name?: string;
+  width?: number;
+  height?: number;
+  opacity?: number;
+  position: Position;
 
-  text(text: string): Watermark {
-    this.watermarkText = text;
-    return this;
-  }
-
-  image(image: WatermarkImage): Watermark {
-    this.watermarkImage = image;
-    return this;
-  }
-
-  fontSize(fontSize: number): Watermark {
-    this.watermarkFontSize = fontSize;
-    return this;
-  }
-
-  fontColor(fontColor: string): Watermark {
-    this.watermarkFontColor = fontColor;
-    return this;
-  }
-
-  opacity(opacity: number): Watermark {
-    this.watermarkOpacity = opacity;
-    return this;
-  }
-
-  position(position: Position): Watermark {
-    this.watermarkPosition = position;
-    return this;
+  constructor(opts: ImageWatermarkOptions = {}) {
+    this.position = opts.position || Position.BOTTOM_RIGHT;
+    if (opts.height){
+      this.height = opts.height;
+    }
+    if (opts.width){
+      this.width = opts.width;
+    }
+    if (opts.url){
+      this.path = opts.url;
+    }
+    if (opts.uploaded_image_name){
+      this.image_name = opts.uploaded_image_name;
+    }
+    if (opts.opacity === 0) {
+      this.opacity = 0;
+    } else {
+      this.opacity = opts.opacity || 0.9;
+    }
   }
 
   toJSON() {
     const ret = {
-      fontSize: `${this.watermarkFontSize}`,
-      text: this.watermarkText,
-      image: this.watermarkImage,
-      fontColor: this.watermarkFontColor,
-      opacity: `${this.watermarkOpacity}`,
-      position: this.watermarkPosition,
+      width: this.width,
+      height: this.height,
+      image_name: this.image_name,
+      opacity: `${this.opacity}`,
+      position: this.position,
+    };
+
+    return removeUndefinedFromObj(ret);
+  }
+}
+
+export class TextWatermark implements TextWatermarkOptions {
+  text?: string;
+  image?: WatermarkImage;
+  fontSize?: number;
+  fontColor?: string;
+  opacity?: number;
+  position: Position;
+
+  constructor(opts: TextWatermarkOptions = {}) {
+    this.text = opts.text;
+    this.fontSize = opts.fontSize || 12;
+    this.fontColor = opts.fontColor || "white";
+    this.position = opts.position || Position.BOTTOM_RIGHT;
+    if (opts.opacity === 0) {
+      this.opacity = 0;
+    } else {
+      this.opacity = opts.opacity || 0.9;
+    }
+  }
+
+  toJSON() {
+    const ret = {
+      fontSize: `${this.fontSize}`,
+      text: this.text,
+      image: this.image,
+      fontColor: this.fontColor,
+      opacity: `${this.opacity}`,
+      position: this.position,
     };
 
     return removeUndefinedFromObj(ret);
