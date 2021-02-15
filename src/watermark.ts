@@ -66,7 +66,8 @@ export class ImageWatermark implements ImageWatermarkOptions {
     const ret = {
       width: this.width,
       height: this.height,
-      image_name: this.image_name,
+      imageName: this.image_name,
+      imageUrl: this.path,
       opacity: `${this.opacity}`,
       position: this.position,
     };
@@ -99,7 +100,6 @@ export class TextWatermark implements TextWatermarkOptions {
     const ret = {
       fontSize: `${this.fontSize}`,
       text: this.text,
-      image: this.image,
       fontColor: this.fontColor,
       opacity: `${this.opacity}`,
       position: this.position,
