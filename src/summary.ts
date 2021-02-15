@@ -4,7 +4,7 @@ import { Blob } from "./blob";
 import { Job } from "./job";
 import { Webhooks } from "./webhooks";
 import { Executable } from "./Executable";
-import { ImageWatermark, TextWatermark, Watermark } from "./watermark";
+import { Watermark } from "./watermark";
 
 export enum SummaryType {
   MP4 = "mp4",
