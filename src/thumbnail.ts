@@ -88,14 +88,14 @@ export class ThumbnailJob implements Executable {
 
     const body: any = {
       apiKey: this.apikey,
+      inputCreds: this.inputBlob?.toApiCredentials(),
+      outputCreds: this.inputBlob?.toApiCredentials(),
       successURL: this.successUrl,
       failureURL: this.failureUrl,
-      inputURL: this.inputUrl,
-      outputURL: this.outputUrl,
+      inputURL: this.inputUrl || this.inputBlob.toApiUrl(),
+      outputURL: this.outputUrl || this.outputBlob.toApiUrl(),
       width: `${this.thumbWidth}`,
       watermark: this.thumbWatermark?.toJSON(),
-      inputBlob: this.inputBlob?.toJSON(),
-      outputBlob: this.outputBlob?.toJSON(),
     };
 
     const resp = await API.createJob("thumbnail", removeUndefinedFromObj(body));
