@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_API_PATH = "https://api.stackrock.io";
+const BASE_API_PATH = "https://api.mediamachine.io";
 
 const SERVICES_TO_PATH = {
   thumbnail: "/thumbnail",

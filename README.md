@@ -1,6 +1,6 @@
-# Mediamachine.js
+# Mediamachine
 
-This library will let you use [Stackrock](https://stackrock.io)'s MediaMachine api to:
+This library will let you use [MediaMachine](https://mediamachine.io)'s api to:
 
 - Transcode a video to a different format
 - Generate a thumbnail image from a video
@@ -9,7 +9,7 @@ This library will let you use [Stackrock](https://stackrock.io)'s MediaMachine a
 ## Installation
 
 ```
-$ npm install @stackrock/mediamachine
+$ npm install mediamachine
 ```
 
 ## Usage
@@ -18,8 +18,8 @@ First import and create a mediamachine client:
 
 ```javascript
 import { MediaMachine } from "../src/MediaMachine";
-const STACKROCK_API_KEY = "your stackrock api key here";
-const mediaMachine = new MediaMachine(STACKROCK_API_KEY);
+const MEDIAMACHINE_API_KEY = "your mediamachine api key here";
+const mediaMachine = new MediaMachine(MEDIAMACHINE_API_KEY);
 ```
 
 Each type of request (`thumbnail()`, `transcodeToMp4()`, `transcodeToWebm()` and `summary()`) creates and returns a [Job](#job) object that you can use to query the state of that Job.
@@ -48,8 +48,8 @@ This method takes a single argument of the following optional inputs:
 
   * `width` : number representing the desired width of the thumbnail (default: 720 px).
   * `watermark` : a [Watermark](#Watermarking) object to use for the image's watermark.
-  * `successUrl` : a url for StackRock to POST to when the thumbnail has been created.
-  * `failureUrl` : a url for StackRock to POST to when the thumbnail could not be created.
+  * `successUrl` : a url for MediaMachine to POST to when the thumbnail has been created.
+  * `failureUrl` : a url for MediaMachine to POST to when the thumbnail could not be created.
 
 The simplest version might be:
 
@@ -99,8 +99,8 @@ This method takes a single argument of the following optional inputs:
   * `width` : number representing the desired width of the video output.
   * `watermark` : a [Watermark](#Watermarking) object to used for the image's watermark.
   * `encoder` : "h264", "h265", "vp8", "vp9" (default: "h264")
-  * `successUrl` : a url for StackRock to POST to when the thumbnail has been created.
-  * `failureUrl` : a url for StackRock to POST to when the thumbnail could not be created.
+  * `successUrl` : a url for MediaMachine to POST to when the thumbnail has been created.
+  * `failureUrl` : a url for MediaMachine to POST to when the thumbnail could not be created.
 
 The simplest version might be:
 
@@ -152,8 +152,8 @@ This method takes a single argument of the following optional inputs:
   * `width` : number representing the desired width of the video output.
   * `watermark` : a [Watermark](#Watermarking) object to used for the image's watermark.
   * `encoder` : "vp8", "vp9" (default: "vp8")
-  * `successUrl` : a url for StackRock to POST to when the thumbnail has been created.
-  * `failureUrl` : a url for StackRock to POST to when the thumbnail could not be created.
+  * `successUrl` : a url for MediaMachine to POST to when the thumbnail has been created.
+  * `failureUrl` : a url for MediaMachine to POST to when the thumbnail could not be created.
 
 The simplest version might be:
 
@@ -206,8 +206,8 @@ This method takes a single argument of the following optional inputs:
   * `watermark` : a [Watermark](#Watermarking) object to use for the image's watermark.
   * `format` : "mp4", "gif" -- the output format you want (default: "gif")
   * `removeAudio` : a boolean to indicate whether to remove audio (default: false, applies only to mp4s)
-  * `successUrl` : a url for StackRock to POST to when the thumbnail has been created.
-  * `failureUrl` : a url for StackRock to POST to when the thumbnail could not be created.
+  * `successUrl` : a url for MediaMachine to POST to when the thumbnail has been created.
+  * `failureUrl` : a url for MediaMachine to POST to when the thumbnail could not be created.
 
 The simplest version might be:
 
