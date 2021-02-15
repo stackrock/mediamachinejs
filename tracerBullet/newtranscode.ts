@@ -5,15 +5,7 @@
  *  2) To Test our API is running as expected
  */
 require('dotenv').config();
-import { MediaMachine } from "../src/MediaMachine";
-
-import {
-  JobStatus,
-  Encoder,
-  Bitrate,
-  Container,
-  VideoSize,
-} from "../src/index";
+import { MediaMachine } from "../src";
 
 import { sleep } from "./utils";
 
@@ -31,7 +23,7 @@ async function main() {
   try {
 
     const job = await mediaMachine.transcodeToMp4({
-      encoder: Encoder.H264,
+      encoder: "h264",
       height: 300,
       width: 150,
       watermark: mediaMachine.textWatermark("stackrock.io"),

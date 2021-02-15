@@ -1,5 +1,4 @@
-import { Store } from ".";
-import { Blob } from "./blob";
+import { Blob, Store } from "./blob";
 import { Executable } from "./Executable";
 import { Newable } from "./Newable";
 
@@ -18,41 +17,32 @@ export class WorkerConfig<U> {
   }
 
   fromS3 (region: string, accessKeyId: string, secretAccessKey: string, bucket: string, inputKey: string) {
-    const inputFile = Blob.withDefaults()
-      .bucket(bucket)
-      .key(inputKey)
-      .credentials({
+    const inputFile = new Blob({
         region,
         accessKeyId,
         secretAccessKey,
         type: Store.S3,
-      });
+      }, bucket, inputKey);
     const Target = this.targetKlass;
     const executable = this.getExecutable(inputFile);
     return new Target(executable, inputFile); 
   }
 
   fromAzure (accountKey: string, accountName: string, bucket: string, inputKey: string) {
-    const inputFile = Blob.withDefaults()
-      .bucket(bucket)
-      .key(inputKey)
-      .credentials({
+    const inputFile = new Blob({
         accountKey,
         accountName,
         type: Store.AZURE_BLOB,
-      });
+      }, bucket, inputKey);
     const Target = this.targetKlass;
     return new Target(this, inputFile); 
   }
 
   fromGCloud (json: string, bucket: string, inputKey: string) {
-    const inputFile = Blob.withDefaults()
-      .bucket(bucket)
-      .key(inputKey)
-      .credentials({
+    const inputFile = new Blob({
         json,
         type: Store.GOOGLE_BLOB
-      });
+      }, bucket, inputKey);
     const Target = this.targetKlass;
     return new Target(this, inputFile); 
   }

@@ -6,13 +6,10 @@ import { Webhooks } from "./webhooks";
 import { Executable } from "./Executable";
 import { Watermark } from "./watermark";
 
-export enum SummaryType {
-  MP4 = "mp4",
-  GIF = "gif",
-}
+export type SummaryType = "mp4" | "gif";
 
 export class SummaryJob implements Executable {
-  apikey: string;
+  apiKey: string;
   successUrl?: string;
   failureUrl?: string;
   inputUrl?: string;
@@ -24,17 +21,9 @@ export class SummaryJob implements Executable {
   summaryType: SummaryType;
   summaryRemoveAudio?: boolean;
 
-  constructor() {}
-
-  static withDefaults(): SummaryJob {
-    const sj = new SummaryJob();
-    sj.summaryWidth = 720;
-    return sj;
-  }
-
-  apiKey(apiKey: string): SummaryJob {
-    this.apikey = apiKey;
-    return this;
+  constructor(apikey: string) {
+    this.summaryWidth = 720;
+    this.apiKey = apikey;
   }
 
   webhooks(webhooks: Webhooks): SummaryJob {
@@ -88,11 +77,11 @@ export class SummaryJob implements Executable {
       jobType = "mp4_summary";
     }
 
-    if (this.apikey === null) {
+    if (this.apiKey === null) {
       throw new Error("Missing apiKey");
     }
 
-    if (this.apikey.trim() == "") {
+    if (this.apiKey.trim() == "") {
       throw new Error("Missing apiKey");
     }
 
@@ -112,7 +101,7 @@ export class SummaryJob implements Executable {
     }
 
     const body = {
-      apiKey: this.apikey,
+      apiKey: this.apiKey,
       successURL: this.successUrl,
       failureURL: this.failureUrl,
       width: `${this.summaryWidth}`,

@@ -11,14 +11,11 @@ export class WorkerTarget<T extends Executable> {
   async toAzure (accountKey: string, accountName: string, bucket: string, inputKey: string) {
     
     // create the output blob
-    const outputFile = Blob.withDefaults()
-      .bucket(bucket)
-      .key(inputKey)
-      .credentials({
+    const outputFile = new Blob({
         accountKey,
         accountName,
         type: Store.AZURE_BLOB,
-      });
+      }, bucket, inputKey);
 
     const job = await this.workerConfig.to(outputFile).execute();
     return job;
@@ -27,13 +24,10 @@ export class WorkerTarget<T extends Executable> {
   async toGCloud (json: string, bucket: string, inputKey: string) {
     
     // create the output blob
-    const outputFile = Blob.withDefaults()
-      .bucket(bucket)
-      .key(inputKey)
-      .credentials({
+    const outputFile = new Blob({
         json,
         type: Store.GOOGLE_BLOB,
-      });
+      }, bucket, inputKey);
 
     const job = await this.workerConfig.to(outputFile).execute();
     return job;
@@ -42,15 +36,12 @@ export class WorkerTarget<T extends Executable> {
   async toS3 (region: string, accessKeyId: string, secretAccessKey: string, bucket: string, inputKey: string) {
     
     // create the output blob
-    const outputFile = Blob.withDefaults()
-      .bucket(bucket)
-      .key(inputKey)
-      .credentials({
+    const outputFile = new Blob({
         region,
         accessKeyId,
         secretAccessKey,
         type: Store.S3,
-      });
+      }, bucket, inputKey);
 
     const job = await this.workerConfig.to(outputFile).execute();
     return job;
