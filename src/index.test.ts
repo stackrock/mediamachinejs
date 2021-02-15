@@ -6,10 +6,10 @@ import { ThumbnailJob } from "./thumbnail";
 import { TranscodeJob, TranscodeOpts } from "./transcode";
 import { ImageWatermark, TextWatermark } from "./watermark";
 
-const FAKE_SUCCESS_URL = "http://stackrock.io/success";
-const FAKE_FAILURE_URL = "http://stackrock.io/failure";
-const FAKE_INPUT_URL = "http://stackrock.io/path/to/image.png";
-const FAKE_OUTPUT_URL = "http://stackrock.io/path/to/output/image";
+const FAKE_SUCCESS_URL = "http://mediamachine.io/success";
+const FAKE_FAILURE_URL = "http://mediamachine.io/failure";
+const FAKE_INPUT_URL = "http://mediamachine.io/path/to/image.png";
+const FAKE_OUTPUT_URL = "http://mediamachine.io/path/to/output/image";
 const FAKE_TRANSCODE_OPTS = new TranscodeOpts();
 const FAKE_S3_BLOB = new Blob({
     region: "us-east-1",
@@ -31,7 +31,7 @@ const FAKE_IMAGE_WATERMARK = new ImageWatermark({
   width: 400,
   url: "http://path.com/to/your/image",
 });
-const textWatermark = new TextWatermark("stackrock.io");
+const textWatermark = new TextWatermark("mediamachine.io");
 
 describe("Mediamachine", () => {
   describe("thumbnail", () => {
@@ -56,7 +56,7 @@ describe("Mediamachine", () => {
       };
 
       mock
-        .onPost("https://api.stackrock.io/thumbnail", expectedBody)
+        .onPost("https://api.mediamachine.io/thumbnail", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -80,7 +80,7 @@ describe("Mediamachine", () => {
         inputURL: FAKE_INPUT_URL,
         outputURL: FAKE_OUTPUT_URL,
         watermark: {
-          text: "stackrock.io",
+          text: "mediamachine.io",
           fontSize: 12,
           fontColor: "white",
           opacity: 0.9,
@@ -89,7 +89,7 @@ describe("Mediamachine", () => {
         width: 150,
       };
       mock
-        .onPost("https://api.stackrock.io/thumbnail", expectedBody)
+        .onPost("https://api.mediamachine.io/thumbnail", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -127,7 +127,7 @@ describe("Mediamachine", () => {
         width: 150,
       };
       mock
-        .onPost("https://api.stackrock.io/thumbnail", expectedBody)
+        .onPost("https://api.mediamachine.io/thumbnail", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -154,7 +154,7 @@ describe("Mediamachine", () => {
         width: 720,
       };
       mock
-        .onPost("https://api.stackrock.io/thumbnail", expectedBody)
+        .onPost("https://api.mediamachine.io/thumbnail", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -188,7 +188,7 @@ describe("Mediamachine", () => {
         width: 150,
       };
       mock
-        .onPost("https://api.stackrock.io/thumbnail", expectedBody)
+        .onPost("https://api.mediamachine.io/thumbnail", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -219,7 +219,7 @@ describe("Mediamachine", () => {
         width: 150,
       };
       mock
-        .onPost("https://api.stackrock.io/thumbnail", expectedBody)
+        .onPost("https://api.mediamachine.io/thumbnail", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -250,7 +250,7 @@ describe("Mediamachine", () => {
         width: 150,
       };
       mock
-        .onPost("https://api.stackrock.io/thumbnail", expectedBody)
+        .onPost("https://api.mediamachine.io/thumbnail", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -285,7 +285,7 @@ describe("Mediamachine", () => {
         width: 150,
       };
       mock
-        .onPost("https://api.stackrock.io/thumbnail", expectedBody)
+        .onPost("https://api.mediamachine.io/thumbnail", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -316,7 +316,7 @@ describe("Mediamachine", () => {
         width: 150,
       };
       mock
-        .onPost("https://api.stackrock.io/thumbnail", expectedBody)
+        .onPost("https://api.mediamachine.io/thumbnail", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -347,7 +347,7 @@ describe("Mediamachine", () => {
         width: 150,
       };
       mock
-        .onPost("https://api.stackrock.io/thumbnail", expectedBody)
+        .onPost("https://api.mediamachine.io/thumbnail", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -387,7 +387,7 @@ describe("Mediamachine", () => {
         width: 150,
       };
       mock
-        .onPost("https://api.stackrock.io/thumbnail", expectedBody)
+        .onPost("https://api.mediamachine.io/thumbnail", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -494,7 +494,7 @@ describe("Mediamachine", () => {
       };
 
       mock
-        .onPost("https://api.stackrock.io/summary/gif", expectedBody)
+        .onPost("https://api.mediamachine.io/summary/gif", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -519,7 +519,7 @@ describe("Mediamachine", () => {
         inputURL: FAKE_INPUT_URL,
         outputURL: FAKE_OUTPUT_URL,
         watermark: {
-          text: "stackrock.io",
+          text: "mediamachine.io",
           fontSize: 12,
           fontColor: "white",
           opacity: 0.9,
@@ -528,7 +528,7 @@ describe("Mediamachine", () => {
         width: 150,
       };
       mock
-        .onPost("https://api.stackrock.io/summary/gif", expectedBody)
+        .onPost("https://api.mediamachine.io/summary/gif", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -567,7 +567,7 @@ describe("Mediamachine", () => {
         width: 150,
       };
       mock
-        .onPost("https://api.stackrock.io/summary/gif", expectedBody)
+        .onPost("https://api.mediamachine.io/summary/gif", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -595,7 +595,7 @@ describe("Mediamachine", () => {
         width: 720,
       };
       mock
-        .onPost("https://api.stackrock.io/summary/gif", expectedBody)
+        .onPost("https://api.mediamachine.io/summary/gif", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -630,7 +630,7 @@ describe("Mediamachine", () => {
         width: 150,
       };
       mock
-        .onPost("https://api.stackrock.io/summary/gif", expectedBody)
+        .onPost("https://api.mediamachine.io/summary/gif", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -662,7 +662,7 @@ describe("Mediamachine", () => {
         width: 150,
       };
       mock
-        .onPost("https://api.stackrock.io/summary/gif", expectedBody)
+        .onPost("https://api.mediamachine.io/summary/gif", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -694,7 +694,7 @@ describe("Mediamachine", () => {
         width: 150,
       };
       mock
-        .onPost("https://api.stackrock.io/summary/gif", expectedBody)
+        .onPost("https://api.mediamachine.io/summary/gif", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -726,7 +726,7 @@ describe("Mediamachine", () => {
         width: 150,
       };
       mock
-        .onPost("https://api.stackrock.io/summary/gif", expectedBody)
+        .onPost("https://api.mediamachine.io/summary/gif", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -758,7 +758,7 @@ describe("Mediamachine", () => {
         width: 150,
       };
       mock
-        .onPost("https://api.stackrock.io/summary/gif", expectedBody)
+        .onPost("https://api.mediamachine.io/summary/gif", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -799,7 +799,7 @@ describe("Mediamachine", () => {
         width: 150,
       };
       mock
-        .onPost("https://api.stackrock.io/summary/gif", expectedBody)
+        .onPost("https://api.mediamachine.io/summary/gif", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -901,7 +901,7 @@ describe("Mediamachine", () => {
     });
 
     test("with all required properties does not fail", async () => {
-      mock.onPost("https://api.stackrock.io/summary/mp4").reply(201, retData);
+      mock.onPost("https://api.mediamachine.io/summary/mp4").reply(201, retData);
       await expect(
         new SummaryJob('test-123')
           .webhooks({
@@ -924,7 +924,7 @@ describe("Mediamachine", () => {
         inputURL: FAKE_INPUT_URL,
         outputURL: FAKE_OUTPUT_URL,
         watermark: {
-          text: "stackrock.io",
+          text: "mediamachine.io",
           fontSize: 12,
           fontColor: "white",
           opacity: 0.9,
@@ -933,7 +933,7 @@ describe("Mediamachine", () => {
         width: 150,
       };
       mock
-        .onPost("https://api.stackrock.io/summary/mp4", expectedBody)
+        .onPost("https://api.mediamachine.io/summary/mp4", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -972,7 +972,7 @@ describe("Mediamachine", () => {
         width: 150,
       };
       mock
-        .onPost("https://api.stackrock.io/summary/mp4", expectedBody)
+        .onPost("https://api.mediamachine.io/summary/mp4", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -1000,7 +1000,7 @@ describe("Mediamachine", () => {
         width: 720,
       };
       mock
-        .onPost("https://api.stackrock.io/summary/mp4", expectedBody)
+        .onPost("https://api.mediamachine.io/summary/mp4", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -1035,7 +1035,7 @@ describe("Mediamachine", () => {
         width: 150,
       };
       mock
-        .onPost("https://api.stackrock.io/summary/mp4", expectedBody)
+        .onPost("https://api.mediamachine.io/summary/mp4", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -1067,7 +1067,7 @@ describe("Mediamachine", () => {
         width: 150,
       };
       mock
-        .onPost("https://api.stackrock.io/summary/mp4", expectedBody)
+        .onPost("https://api.mediamachine.io/summary/mp4", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -1099,7 +1099,7 @@ describe("Mediamachine", () => {
         width: 150,
       };
       mock
-        .onPost("https://api.stackrock.io/summary/mp4", expectedBody)
+        .onPost("https://api.mediamachine.io/summary/mp4", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -1131,7 +1131,7 @@ describe("Mediamachine", () => {
         width: 150,
       };
       mock
-        .onPost("https://api.stackrock.io/summary/mp4", expectedBody)
+        .onPost("https://api.mediamachine.io/summary/mp4", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -1163,7 +1163,7 @@ describe("Mediamachine", () => {
         width: 150,
       };
       mock
-        .onPost("https://api.stackrock.io/summary/mp4", expectedBody)
+        .onPost("https://api.mediamachine.io/summary/mp4", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -1204,7 +1204,7 @@ describe("Mediamachine", () => {
         width: 150,
       };
       mock
-        .onPost("https://api.stackrock.io/summary/mp4", expectedBody)
+        .onPost("https://api.mediamachine.io/summary/mp4", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -1307,7 +1307,7 @@ describe("Mediamachine", () => {
     });
 
     test("with all required properties does not fail", () => {
-      mock.onPost("https://api.stackrock.io/transcode").reply(201, retData);
+      mock.onPost("https://api.mediamachine.io/transcode").reply(201, retData);
       expect(
         new TranscodeJob("test-123")
           .webhooks({
@@ -1331,7 +1331,7 @@ describe("Mediamachine", () => {
         outputURL: FAKE_OUTPUT_URL,
         width: 150,
         watermark: {
-          text: "stackrock.io",
+          text: "mediamachine.io",
           fontSize: 12,
           fontColor: "white",
           opacity: 0.9,
@@ -1345,7 +1345,7 @@ describe("Mediamachine", () => {
         },
       };
       mock
-        .onPost("https://api.stackrock.io/transcode", expectedBody)
+        .onPost("https://api.mediamachine.io/transcode", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -1390,7 +1390,7 @@ describe("Mediamachine", () => {
         },
       };
       mock
-        .onPost("https://api.stackrock.io/transcode", expectedBody)
+        .onPost("https://api.mediamachine.io/transcode", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -1424,7 +1424,7 @@ describe("Mediamachine", () => {
         width: 720,
       };
       mock
-        .onPost("https://api.stackrock.io/transcode", expectedBody)
+        .onPost("https://api.mediamachine.io/transcode", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -1466,7 +1466,7 @@ describe("Mediamachine", () => {
       };
 
       mock
-        .onPost("https://api.stackrock.io/transcode", expectedBody)
+        .onPost("https://api.mediamachine.io/transcode", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -1504,7 +1504,7 @@ describe("Mediamachine", () => {
         width: 150,
       };
       mock
-        .onPost("https://api.stackrock.io/transcode", expectedBody)
+        .onPost("https://api.mediamachine.io/transcode", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -1542,7 +1542,7 @@ describe("Mediamachine", () => {
         width: 150,
       };
       mock
-        .onPost("https://api.stackrock.io/transcode", expectedBody)
+        .onPost("https://api.mediamachine.io/transcode", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -1580,7 +1580,7 @@ describe("Mediamachine", () => {
         width: 150,
       };
       mock
-        .onPost("https://api.stackrock.io/transcode", expectedBody)
+        .onPost("https://api.mediamachine.io/transcode", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -1618,7 +1618,7 @@ describe("Mediamachine", () => {
         width: 150,
       };
       mock
-        .onPost("https://api.stackrock.io/transcode", expectedBody)
+        .onPost("https://api.mediamachine.io/transcode", expectedBody)
         .reply(201, retData);
 
       await expect(
@@ -1665,7 +1665,7 @@ describe("Mediamachine", () => {
         width: 150,
       };
       mock
-        .onPost("https://api.stackrock.io/transcode", expectedBody)
+        .onPost("https://api.mediamachine.io/transcode", expectedBody)
         .reply(201, retData);
 
       await expect(

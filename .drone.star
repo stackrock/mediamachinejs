@@ -29,8 +29,8 @@ def pipeline(kind):
                 "pull": "if-not-exists",
                 "image": "arm64v8/node:14.15-alpine",
                 "environment": {
-                    "STACKROCK_API_KEY": {
-                        "from_secret": "STACKROCK_API_KEY"
+                    "MEDIAMACHINE_API_KEY": {
+                        "from_secret": "MEDIAMACHINE_API_KEY"
                     },
                     "BUCKET": {
                         "from_secret": "BUCKET"
@@ -63,8 +63,8 @@ def pipeline(kind):
                 "pull": "if-not-exists",
                 "image": "arm64v8/node:14.15-alpine",
                 "environment": {
-                    "STACKROCK_API_KEY": {
-                        "from_secret": "STACKROCK_API_KEY"
+                    "MEDIAMACHINE_API_KEY": {
+                        "from_secret": "MEDIAMACHINE_API_KEY"
                     },
                     "BUCKET": {
                         "from_secret": "BUCKET"
@@ -97,8 +97,8 @@ def pipeline(kind):
                 "pull": "if-not-exists",
                 "image": "arm64v8/node:14.15-alpine",
                 "environment": {
-                    "STACKROCK_API_KEY": {
-                        "from_secret": "STACKROCK_API_KEY"
+                    "MEDIAMACHINE_API_KEY": {
+                        "from_secret": "MEDIAMACHINE_API_KEY"
                     },
                     "BUCKET": {
                         "from_secret": "BUCKET"

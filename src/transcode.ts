@@ -8,7 +8,7 @@ import { Executable } from "./Executable";
 
 export type Encoder = "h264" | "h265" | "vp8" | "vp9";
 
-export type Bitrate = "8000" | "4000" | "1000";
+export type Bitrate = "1000" | "2000" | "4000";
 
 export enum Container {
   MP4 = "mp4",
