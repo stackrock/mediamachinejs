@@ -6,33 +6,17 @@ import { Job } from "./job";
 import { Webhooks } from "./webhooks";
 import { Executable } from "./Executable";
 
-export enum Encoder {
-  H264 = "h264",
-  H265 = "h265",
-  VP8 = "vp8",
-  VP9 = "vp9",
-}
+export type Encoder = "h264" | "h265" | "vp8" | "vp9";
 
-export enum Bitrate {
-  EIGHT_MEGAKBPS = "8000",
-  FOUR_MEGAKBPS = "4000",
-  ONE_MEGAKBPS = "1000",
-}
+export type Bitrate = "8000" | "4000" | "1000";
 
 export enum Container {
   MP4 = "mp4",
   WEBM = "webm",
 }
 
-export enum VideoSize {
-  FULL_HD = "1080",
-  HD = "720",
-  SD = "480",
-}
-
-
 export class TranscodeJob implements Executable {
-  apikey: string;
+  apiKey: string;
   successUrl?: string;
   failureUrl?: string;
   inputUrl?: string;
@@ -44,18 +28,10 @@ export class TranscodeJob implements Executable {
   transcodeWatermark?: Watermark;
   transcodeOpts: TranscodeOpts;
 
-  constructor() {
-  }
+  constructor(apiKey: string) {
+    this.transcodeWidth = 720;
+    this.apiKey = apiKey;
 
-  static withDefaults() {
-    const tj = new TranscodeJob();
-    tj.transcodeWidth = 720;
-    return tj;
-  }
-
-  apiKey(apiKey: string): TranscodeJob {
-    this.apikey = apiKey;
-    return this;
   }
 
   webhooks(webhooks: Webhooks): TranscodeJob {
@@ -98,18 +74,17 @@ export class TranscodeJob implements Executable {
     return this;
   }
 
-
   opts(value: TranscodeOpts): TranscodeJob {
     this.transcodeOpts = value;
     return this;
   }
 
   async execute() {
-    if (this.apikey === null) {
+    if (this.apiKey === null) {
       throw new Error("Missing apiKey");
     }
 
-    if (this.apikey.trim() == "") {
+    if (this.apiKey.trim() == "") {
       throw new Error("Missing apiKey");
     }
 
@@ -129,7 +104,7 @@ export class TranscodeJob implements Executable {
     }
 
     const body = {
-      apiKey: this.apikey,
+      apiKey: this.apiKey,
       successURL: this.successUrl,
       failureURL: this.failureUrl,
       inputURL: this.inputUrl,
@@ -149,31 +124,15 @@ export class TranscodeJob implements Executable {
   }
 }
 
-export class OptionBuilder {
-  toJSON () {
-    return {};
-  }
-
-  static withDefaults() {
-    throw new Error(`not implemented`);
-  }
-}
-
-export class TranscodeOpts extends OptionBuilder {
+export class TranscodeOpts {
   transcoderEncoder: Encoder;
   transcoderBitrateKbps: Bitrate;
   transcoderContainer: Container;
 
   constructor() {
-    super();
-  }
-
-  static withDefaults() {
-    const to = new TranscodeOpts();
-    to.transcoderEncoder = Encoder.H264;
-    to.transcoderBitrateKbps = Bitrate.FOUR_MEGAKBPS;
-    to.transcoderContainer = Container.MP4;
-    return to;
+    this.transcoderEncoder = "h264";
+    this.transcoderBitrateKbps = "4000";
+    this.transcoderContainer = Container.MP4;
   }
 
   encoder(value: Encoder): TranscodeOpts {

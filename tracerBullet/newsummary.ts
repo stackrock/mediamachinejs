@@ -5,16 +5,7 @@
  *  2) To Test our API is running as expected
  */
 require('dotenv').config();
-import { MediaMachine } from "../src/MediaMachine";
-
-import {
-  JobStatus,
-  Encoder,
-  Bitrate,
-  Container,
-  VideoSize,
-  SummaryType,
-} from "../src/index";
+import { MediaMachine } from "../src";
 
 import { sleep } from "./utils";
 
@@ -34,7 +25,7 @@ async function main() {
     const job = await mediaMachine.summary({
       width: 150,
       watermark: mediaMachine.textWatermark("stackrock.io"),
-      format: SummaryType.GIF,
+      format: "gif",
     })
     .fromS3(AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, BUCKET, INPUT_KEY)
     .toS3(AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, BUCKET, OUTPUT_KEY)

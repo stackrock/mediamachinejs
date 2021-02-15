@@ -32,63 +32,7 @@ export class Blob {
   azureCreds?: AzureCreds;
   gcpCreds?: GCPCreds;
 
-  constructor() {
-  }
-
-  static withDefaults(): Blob {
-    const b = new Blob();
-    return b;
-  }
-
-  static S3WithDefaults(accessKeyId: string, secretAccessKey: string, region: string): Blob {
-    const b = new Blob();
-    b.blobStore = Store.S3;
-    b.awsCreds = {
-      accessKeyId,
-      secretAccessKey,
-      region,
-      type: Store.S3,
-    }
-    return b;
-  }
-
-  static AzureWithDefaults(accountName: string, accountKey: string): Blob {
-    const b = new Blob();
-    b.blobStore = Store.AZURE_BLOB;
-    b.azureCreds = {
-      accountName,
-      accountKey,
-      type: Store.AZURE_BLOB,
-    }
-    return b;
-  }
-
-  static GCPWithDefaults(json: string): Blob {
-    const b = new Blob();
-    b.blobStore = Store.GOOGLE_BLOB;
-    b.gcpCreds = {
-      json,
-      type: Store.GOOGLE_BLOB,
-    }
-    return b;
-  }
-
-  store(store: Store): Blob {
-    this.blobStore = store;
-    return this;
-  }
-
-  bucket(bucket: string): Blob {
-    this.blobBucket = bucket;
-    return this;
-  }
-
-  key(key: string): Blob {
-    this.blobKey = key;
-    return this;
-  }
-
-  credentials(creds: Credentials): Blob {
+  constructor(creds: Credentials, bucket: string, key:string) {
     if (creds.type === Store.S3) {
       this.awsCreds = creds;
       this.blobStore = creds.type;
@@ -101,9 +45,10 @@ export class Blob {
     } else {
       throw new Error("Invalid Credential type");
     }
-    return this;
+    this.blobBucket = bucket;
+    this.blobKey = key;
   }
-  
+
   toApiCredentials() {
     const creds =  this.awsCreds || this.azureCreds || this.gcpCreds || undefined;
     const omitSingle = (key: string, { [key]: _, ...obj }) => obj;

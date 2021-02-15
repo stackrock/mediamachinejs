@@ -7,7 +7,7 @@ import { Job } from "./job";
 import { Executable } from "./Executable";
 
 export class ThumbnailJob implements Executable {
-  apikey: string;
+  apiKey: string;
   successUrl?: string;
   failureUrl?: string;
   inputUrl?: string;
@@ -17,18 +17,9 @@ export class ThumbnailJob implements Executable {
   thumbWidth?: number;
   thumbWatermark?: Watermark;
 
-  constructor() {
-  }
-
-  static withDefaults(): ThumbnailJob {
-    const tj = new ThumbnailJob();
-    tj.thumbWidth = 720;
-    return tj;
-  }
-
-  apiKey(key: string): ThumbnailJob {
-    this.apikey = key;
-    return this;
+  constructor(apiKey: string) {
+    this.thumbWidth = 720;
+    this.apiKey = apiKey;
   }
 
   webhooks(webhooks: Webhooks): ThumbnailJob {
@@ -67,11 +58,11 @@ export class ThumbnailJob implements Executable {
   }
 
   async execute() {
-    if (this.apikey === null) {
+    if (this.apiKey === null) {
       throw new Error("Missing apiKey");
     }
 
-    if (this.apikey.trim() == "") {
+    if (this.apiKey.trim() == "") {
       throw new Error("Missing apiKey");
     }
 
@@ -87,7 +78,7 @@ export class ThumbnailJob implements Executable {
     }
 
     const body: any = {
-      apiKey: this.apikey,
+      apiKey: this.apiKey,
       inputCreds: this.inputBlob?.toApiCredentials(),
       outputCreds: this.inputBlob?.toApiCredentials(),
       successURL: this.successUrl,

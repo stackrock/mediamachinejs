@@ -1,20 +1,8 @@
 import { removeUndefinedFromObj } from "./utils";
 
-export enum Position {
-  TOP_LEFT = "topLeft",
-  TOP_RIGHT = "topRight",
-  BOTTOM_LEFT = "bottomLeft",
-  BOTTOM_RIGHT = "bottomRight",
-}
+export type Position = "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
 
 export type Watermark = TextWatermark | ImageWatermark;
-
-export interface WatermarkImage {
-  path?: string;
-  image_name?: string;
-  width?: number;
-  height?: number;
-}
 
  export interface TextWatermarkOptions {
   fontSize?: number;
@@ -41,7 +29,7 @@ export class ImageWatermark implements ImageWatermarkOptions {
   position: Position;
 
   constructor(opts: ImageWatermarkOptions = {}) {
-    this.position = opts.position || Position.BOTTOM_RIGHT;
+    this.position = opts.position || "bottomRight";
     if (opts.height){
       this.height = opts.height;
     }
@@ -77,7 +65,6 @@ export class ImageWatermark implements ImageWatermarkOptions {
 
 export class TextWatermark implements TextWatermarkOptions {
   text: string;
-  image?: WatermarkImage;
   fontSize?: number;
   fontColor?: string;
   opacity?: number;
@@ -87,7 +74,7 @@ export class TextWatermark implements TextWatermarkOptions {
     this.text = text;
     this.fontSize = opts.fontSize || 12;
     this.fontColor = opts.fontColor || "white";
-    this.position = opts.position || Position.BOTTOM_RIGHT;
+    this.position = opts.position || "bottomRight";
     if (opts.opacity === 0) {
       this.opacity = 0;
     } else {

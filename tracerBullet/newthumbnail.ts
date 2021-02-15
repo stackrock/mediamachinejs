@@ -5,8 +5,7 @@
  *  2) To Test our API is running as expected
  */
 
-import { JobStatus } from "../src/index";
-import { MediaMachine } from "../src/MediaMachine";
+import { MediaMachine } from "../src";
 import { sleep } from "./utils";
 require('dotenv').config();
 
