@@ -1,8 +1,8 @@
 export enum Store {
   S3 = "s3",
-  AZURE_BLOB = "azblob",
+  AZURE_BLOB = "azure",
   GOOGLE_BLOB = "gcp",
-}
+}  // these are also protocol prefixes
 
 export interface AWSCreds {
   accessKeyId: string;
@@ -102,6 +102,18 @@ export class Blob {
       throw new Error("Invalid Credential type");
     }
     return this;
+  }
+  
+  toApiCredentials() {
+    const creds =  this.awsCreds || this.azureCreds || this.gcpCreds || undefined;
+    const omitSingle = (key: string, { [key]: _, ...obj }) => obj;
+    return omitSingle("type", creds);
+  }
+
+  toApiUrl (): string {
+    const protocol = this.blobStore;
+    const url = `${protocol}://${encodeURIComponent(this.blobBucket)}/${encodeURIComponent(this.blobKey)}`;
+    return url;
   }
 
   toJSON() {
