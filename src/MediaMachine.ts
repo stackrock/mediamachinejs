@@ -1,6 +1,6 @@
 import { ThumbnailJob } from "./thumbnail";
 import { Blob } from "./blob";
-import { Bitrate, Container, Encoder, TranscodeJob, TranscodeOpts } from "./transcode";
+import { Container, Encoder, TranscodeJob, TranscodeOpts } from "./transcode";
 import { SummaryJob, SummaryType } from "./summary";
 import { parseApiKey } from "./utils";
 import { WorkerConfig } from "./WorkerConfig";
@@ -262,8 +262,7 @@ export class MediaMachine {
   }
 
   textWatermark (text: string, opts: TextWatermarkOptions = {}): TextWatermark {
-    opts.text = text;
-    return new TextWatermark(opts);
+    return new TextWatermark(text, opts);
   }
   imageWatermark (opts: ImageWatermarkOptions = {}): ImageWatermark {
     return new ImageWatermark(opts);

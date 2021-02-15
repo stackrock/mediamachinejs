@@ -17,7 +17,6 @@ export interface WatermarkImage {
 }
 
  export interface TextWatermarkOptions {
-  text?: string;
   fontSize?: number;
   fontColor?: string;
   opacity?: number;
@@ -77,15 +76,15 @@ export class ImageWatermark implements ImageWatermarkOptions {
 }
 
 export class TextWatermark implements TextWatermarkOptions {
-  text?: string;
+  text: string;
   image?: WatermarkImage;
   fontSize?: number;
   fontColor?: string;
   opacity?: number;
   position: Position;
 
-  constructor(opts: TextWatermarkOptions = {}) {
-    this.text = opts.text;
+  constructor(text: string,opts: TextWatermarkOptions = {}) {
+    this.text = text;
     this.fontSize = opts.fontSize || 12;
     this.fontColor = opts.fontColor || "white";
     this.position = opts.position || Position.BOTTOM_RIGHT;

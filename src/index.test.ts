@@ -45,7 +45,7 @@ const FAKE_IMAGE_WATERMARK = new ImageWatermark({
   width: 400,
   url: "http://path.com/to/your/image",
 });
-const textWatermark = new TextWatermark({text: "stackrock.io"});
+const textWatermark = new TextWatermark("stackrock.io");
 
 describe("Mediamachine", () => {
   describe("thumbnail", () => {
