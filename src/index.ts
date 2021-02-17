@@ -66,7 +66,7 @@ class TranscoderMp4 extends WorkerConfig<TranscodeMp4Target> {
     }
     return config;
 
-  } 
+  }
 
 }
 
@@ -127,7 +127,7 @@ class TranscoderWebm extends WorkerConfig<TranscodeWebmTarget> {
     }
     return config;
 
-  } 
+  }
 
 }
 
@@ -158,7 +158,7 @@ class Thumbnailer extends WorkerConfig<ThumbnailTarget> {
     this.options = options;
   }
   getExecutable (fromConfig: string | Blob) {
-    
+
     const options = this.options;
 
     let config = new ThumbnailJob(this.apiKey)
@@ -214,7 +214,7 @@ class Summarizer extends WorkerConfig<SummaryTarget> {
       config = config.width(150);
     }
 
-    config = config.type(options.format ? options.format : "gif"); 
+    config = config.type(options.format ? options.format : "gif");
 
     if (options.watermark) {
       config = config.watermark(options.watermark);
@@ -233,20 +233,20 @@ class Summarizer extends WorkerConfig<SummaryTarget> {
 // ==============================
 
 export class MediaMachine {
-  
+
   apiKey: string;
-  
+
   constructor (apiKey: string) {
     parseApiKey(apiKey);
     this.apiKey = apiKey;
   }
 
   transcodeToWebm(opts: TranscodeWebmOptions): TranscoderWebm {
-    return new TranscoderWebm(this.apiKey, opts);    
+    return new TranscoderWebm(this.apiKey, opts);
   }
 
   transcodeToMp4(opts: TranscodeMp4Options): TranscoderMp4 {
-    return new TranscoderMp4(this.apiKey, opts);    
+    return new TranscoderMp4(this.apiKey, opts);
   }
 
   thumbnail(opts: ThumbnailOptions): Thumbnailer {
@@ -265,3 +265,6 @@ export class MediaMachine {
   }
 }
 
+// Job
+// =========================
+export { Job } from "./job";

@@ -82,4 +82,4 @@ export declare class MediaMachine {
     textWatermark(text: string, opts?: TextWatermarkOptions): TextWatermark;
     imageWatermark(opts?: ImageWatermarkOptions): ImageWatermark;
 }
-export {};
+export { Job } from "./job";
