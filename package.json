@@ -2,7 +2,7 @@
   "name": "mediamachine",
   "version": "0.0.23",
   "description": "MediaMachine services client api",
-  "main": "lib/index.js",
+  "main": "lib/src/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/stackrock/mediamachinejs.git"
