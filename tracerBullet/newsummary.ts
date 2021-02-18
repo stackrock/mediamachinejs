@@ -1,3 +1,6 @@
+process.on("unhandledRejection", (error) => {
+  throw error;
+});
 /*
  * Tracer Bullet for a transcode job.
  * We use this job internally at MediaMachine for two reasons:
