@@ -113,7 +113,7 @@ export class TranscodeJob implements Executable {
       width: `${this.transcodeWidth}`,
       height: `${this.transcodeHeight}`,
       watermark: this.transcodeWatermark?.toJSON(),
-      transcode: this.transcodeOpts?.toJSON(),
+      ...this.transcodeOpts?.toJSON(),
     };
 
     const resp = await API.createJob("transcode", removeUndefinedFromObj(body));
