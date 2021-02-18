@@ -62,5 +62,5 @@ async function main() {
 }
 
 (async () => {
-  await main();
+  return await main();
 })();
