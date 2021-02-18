@@ -130,7 +130,7 @@ export class TranscodeOpts {
 
   constructor() {
     this.transcoderEncoder = "h264";
-    this.transcoderBitrateKbps = "4000";
+    this.transcoderBitrateKbps = "2000";
     this.transcoderContainer = Container.MP4;
   }
 
@@ -152,7 +152,7 @@ export class TranscodeOpts {
   toJSON() {
     return {
       encoder: this.transcoderEncoder,
-      bitrateKbps: this.transcoderBitrateKbps,
+      bitrateKBPS: this.transcoderBitrateKbps,
       container: this.transcoderContainer,
     };
   }
