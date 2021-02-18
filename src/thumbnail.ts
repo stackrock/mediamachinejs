@@ -80,7 +80,7 @@ export class ThumbnailJob implements Executable {
     const body: any = {
       apiKey: this.apiKey,
       inputCreds: this.inputBlob?.toApiCredentials(),
-      outputCreds: this.inputBlob?.toApiCredentials(),
+      outputCreds: this.outputBlob?.toApiCredentials(),
       successURL: this.successUrl,
       failureURL: this.failureUrl,
       inputURL: this.inputUrl || this.inputBlob.toApiUrl(),

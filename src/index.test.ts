@@ -1,5 +1,6 @@
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
+import { MediaMachine } from "./index";
 import { Store, Blob } from "./blob";
 import { SummaryJob } from "./summary";
 import { ThumbnailJob } from "./thumbnail";
@@ -11,21 +12,33 @@ const FAKE_FAILURE_URL = "http://mediamachine.io/failure";
 const FAKE_INPUT_URL = "http://mediamachine.io/path/to/image.png";
 const FAKE_OUTPUT_URL = "http://mediamachine.io/path/to/output/image";
 const FAKE_TRANSCODE_OPTS = new TranscodeOpts();
-const FAKE_S3_BLOB = new Blob({
+const FAKE_S3_BLOB = new Blob(
+  {
     region: "us-east-1",
     accessKeyId: "123",
     secretAccessKey: "abc",
     type: Store.S3,
-}, "test-bucket", "test-key");
-const FAKE_GCP_BLOB = new Blob({
+  },
+  "test-bucket",
+  "test-key"
+);
+const FAKE_GCP_BLOB = new Blob(
+  {
     type: Store.GOOGLE_BLOB,
     json: "{}",
-  }, "test-bucket", "test-key");
-const FAKE_AZURE_BLOB = new Blob({
+  },
+  "test-bucket",
+  "test-key"
+);
+const FAKE_AZURE_BLOB = new Blob(
+  {
     type: Store.AZURE_BLOB,
     accountKey: "123",
     accountName: "abc",
-  }, "test-bucket", "test-key");
+  },
+  "test-bucket",
+  "test-key"
+);
 const FAKE_IMAGE_WATERMARK = new ImageWatermark({
   height: 200,
   width: 400,
@@ -34,6 +47,7 @@ const FAKE_IMAGE_WATERMARK = new ImageWatermark({
 const textWatermark = new TextWatermark("mediamachine.io");
 
 describe("Mediamachine", () => {
+  const API_KEY = "test-jest-123-test-c123a980-7173-11eb-8a10-1fc5d5c9c235";
   describe("thumbnail", () => {
     let mock;
     const retData = { reqId: "12" };
@@ -47,7 +61,7 @@ describe("Mediamachine", () => {
 
     test.only("with all required properties, using URLs does not fail", async () => {
       const expectedBody = {
-        apiKey: "test-123",
+        apiKey: API_KEY,
         successURL: FAKE_SUCCESS_URL,
         failureURL: FAKE_FAILURE_URL,
         inputURL: FAKE_INPUT_URL,
@@ -59,16 +73,16 @@ describe("Mediamachine", () => {
         .onPost("https://api.mediamachine.io/thumbnail", expectedBody)
         .reply(201, retData);
 
+      const mediamachine = new MediaMachine(API_KEY);
       await expect(
-        new ThumbnailJob("test-123")
-          .webhooks({
+        mediamachine
+          .thumbnail({
             successUrl: FAKE_SUCCESS_URL,
             failureUrl: FAKE_FAILURE_URL,
+            width: 150,
           })
-          .from(FAKE_INPUT_URL)
-          .to(FAKE_OUTPUT_URL)
-          .width(150)
-          .execute()
+          .fromUrl(FAKE_INPUT_URL)
+          .toUrl(FAKE_OUTPUT_URL)
       ).resolves.toEqual(retData);
     });
 
@@ -848,7 +862,7 @@ describe("Mediamachine", () => {
 
     test("with no input_url or input_blob provided throws an error", () => {
       expect(
-        new SummaryJob('test-123')
+        new SummaryJob("test-123")
           .webhooks({
             successUrl: FAKE_SUCCESS_URL,
             failureUrl: FAKE_FAILURE_URL,
@@ -862,7 +876,7 @@ describe("Mediamachine", () => {
 
     test("with no output_url or output_blob provided throws an error", () => {
       expect(
-        new SummaryJob('test-123')
+        new SummaryJob("test-123")
           .webhooks({
             successUrl: FAKE_SUCCESS_URL,
             failureUrl: FAKE_FAILURE_URL,
@@ -876,7 +890,7 @@ describe("Mediamachine", () => {
 
     test("with null summaryType throws an error", () => {
       expect(
-        new SummaryJob('test-123')
+        new SummaryJob("test-123")
           .webhooks({
             successUrl: FAKE_SUCCESS_URL,
             failureUrl: FAKE_FAILURE_URL,
@@ -901,9 +915,11 @@ describe("Mediamachine", () => {
     });
 
     test("with all required properties does not fail", async () => {
-      mock.onPost("https://api.mediamachine.io/summary/mp4").reply(201, retData);
+      mock
+        .onPost("https://api.mediamachine.io/summary/mp4")
+        .reply(201, retData);
       await expect(
-        new SummaryJob('test-123')
+        new SummaryJob("test-123")
           .webhooks({
             successUrl: FAKE_SUCCESS_URL,
             failureUrl: FAKE_FAILURE_URL,
@@ -937,7 +953,7 @@ describe("Mediamachine", () => {
         .reply(201, retData);
 
       await expect(
-        new SummaryJob('test-123')
+        new SummaryJob("test-123")
           .webhooks({
             successUrl: FAKE_SUCCESS_URL,
             failureUrl: FAKE_FAILURE_URL,
@@ -976,7 +992,7 @@ describe("Mediamachine", () => {
         .reply(201, retData);
 
       await expect(
-        new SummaryJob('test-123')
+        new SummaryJob("test-123")
           .webhooks({
             successUrl: FAKE_SUCCESS_URL,
             failureUrl: FAKE_FAILURE_URL,
@@ -1004,7 +1020,7 @@ describe("Mediamachine", () => {
         .reply(201, retData);
 
       await expect(
-        new SummaryJob('test-123')
+        new SummaryJob("test-123")
           .webhooks({
             successUrl: FAKE_SUCCESS_URL,
             failureUrl: FAKE_FAILURE_URL,
@@ -1039,7 +1055,7 @@ describe("Mediamachine", () => {
         .reply(201, retData);
 
       await expect(
-        new SummaryJob('test-123')
+        new SummaryJob("test-123")
           .webhooks({
             successUrl: FAKE_SUCCESS_URL,
             failureUrl: FAKE_FAILURE_URL,
@@ -1071,7 +1087,7 @@ describe("Mediamachine", () => {
         .reply(201, retData);
 
       await expect(
-        new SummaryJob('test-123')
+        new SummaryJob("test-123")
           .webhooks({
             successUrl: FAKE_SUCCESS_URL,
             failureUrl: FAKE_FAILURE_URL,
@@ -1103,7 +1119,7 @@ describe("Mediamachine", () => {
         .reply(201, retData);
 
       await expect(
-        new SummaryJob('test-123')
+        new SummaryJob("test-123")
           .webhooks({
             successUrl: FAKE_SUCCESS_URL,
             failureUrl: FAKE_FAILURE_URL,
@@ -1135,7 +1151,7 @@ describe("Mediamachine", () => {
         .reply(201, retData);
 
       await expect(
-        new SummaryJob('test-123')
+        new SummaryJob("test-123")
           .webhooks({
             successUrl: FAKE_SUCCESS_URL,
             failureUrl: FAKE_FAILURE_URL,
@@ -1167,7 +1183,7 @@ describe("Mediamachine", () => {
         .reply(201, retData);
 
       await expect(
-        new SummaryJob('test-123')
+        new SummaryJob("test-123")
           .webhooks({
             successUrl: FAKE_SUCCESS_URL,
             failureUrl: FAKE_FAILURE_URL,
@@ -1208,7 +1224,7 @@ describe("Mediamachine", () => {
         .reply(201, retData);
 
       await expect(
-        new SummaryJob('test-123')
+        new SummaryJob("test-123")
           .webhooks({
             successUrl: FAKE_SUCCESS_URL,
             failureUrl: FAKE_FAILURE_URL,
@@ -1223,7 +1239,7 @@ describe("Mediamachine", () => {
 
     test("with empty string apikey throws an error", () => {
       expect(
-        new SummaryJob('')
+        new SummaryJob("")
           .webhooks({
             successUrl: FAKE_SUCCESS_URL,
             failureUrl: FAKE_FAILURE_URL,
@@ -1238,7 +1254,7 @@ describe("Mediamachine", () => {
 
     test("with apikey only using spaces throws an error", () => {
       expect(
-        new SummaryJob('     ')
+        new SummaryJob("     ")
           .webhooks({
             successUrl: FAKE_SUCCESS_URL,
             failureUrl: FAKE_FAILURE_URL,
@@ -1253,7 +1269,7 @@ describe("Mediamachine", () => {
 
     test("with no input_url or input_blob provided throws an error", () => {
       expect(
-        new SummaryJob('test-123')
+        new SummaryJob("test-123")
           .webhooks({
             successUrl: FAKE_SUCCESS_URL,
             failureUrl: FAKE_FAILURE_URL,
@@ -1267,7 +1283,7 @@ describe("Mediamachine", () => {
 
     test("with no output_url or output_blob provided throws an error", () => {
       expect(
-        new SummaryJob('test-123')
+        new SummaryJob("test-123")
           .webhooks({
             successUrl: FAKE_SUCCESS_URL,
             failureUrl: FAKE_FAILURE_URL,
@@ -1281,7 +1297,7 @@ describe("Mediamachine", () => {
 
     test("with null summaryType throws an error", () => {
       expect(
-        new SummaryJob('test-123')
+        new SummaryJob("test-123")
           .webhooks({
             successUrl: FAKE_SUCCESS_URL,
             failureUrl: FAKE_FAILURE_URL,

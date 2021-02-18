@@ -104,12 +104,12 @@ export class SummaryJob implements Executable {
       apiKey: this.apiKey,
       successURL: this.successUrl,
       failureURL: this.failureUrl,
+      inputCreds: this.inputBlob?.toApiCredentials(),
+      outputCreds: this.outputBlob?.toApiCredentials(),
+      inputURL: this.inputUrl || this.inputBlob.toApiUrl(),
+      outputURL: this.outputUrl || this.outputBlob.toApiUrl(),
       width: `${this.summaryWidth}`,
       watermark: this.summaryWatermark?.toJSON(),
-      inputURL: this.inputUrl,
-      inputBlob: this.inputBlob?.toJSON(),
-      outputURL: this.outputUrl,
-      outputBlob: this.outputBlob?.toJSON(),
       removeAudio: this.summaryRemoveAudio,
     };
 
