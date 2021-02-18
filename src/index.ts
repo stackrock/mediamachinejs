@@ -4,20 +4,24 @@ import { Container, Encoder, TranscodeJob, TranscodeOpts } from "./transcode";
 import { SummaryJob, SummaryType } from "./summary";
 import { parseApiKey } from "./utils";
 import { WorkerConfig } from "./WorkerConfig";
-import { ImageWatermark, ImageWatermarkOptions, TextWatermark, TextWatermarkOptions, Watermark } from "./watermark";
+import {
+  ImageWatermark,
+  ImageWatermarkOptions,
+  TextWatermark,
+  TextWatermarkOptions,
+  Watermark,
+} from "./watermark";
 import { Executable } from "./Executable";
 import { WorkerTarget } from "./WorkerTarget";
-
 
 // mp4 transcoding
 
 class TranscodeMp4Target extends WorkerTarget<TranscodeJob> {
   workerConfig: TranscodeJob;
 
-  constructor (transcoder: TranscodeJob) {
+  constructor(transcoder: TranscodeJob) {
     super(transcoder);
   }
-
 }
 
 interface TranscodeMp4Options {
@@ -30,15 +34,14 @@ interface TranscodeMp4Options {
 }
 
 class TranscoderMp4 extends WorkerConfig<TranscodeMp4Target> {
-
   options: TranscodeMp4Options;
 
-  constructor (apiKey: string, opts: TranscodeMp4Options) {
+  constructor(apiKey: string, opts: TranscodeMp4Options) {
     super(apiKey, TranscodeMp4Target);
     this.options = opts;
   }
 
-  getExecutable (fromConfig: string | Blob) {
+  getExecutable(fromConfig: string | Blob) {
     const opts = new TranscodeOpts();
     const options = this.options;
     opts.container(Container.MP4);
@@ -52,7 +55,7 @@ class TranscoderMp4 extends WorkerConfig<TranscodeMp4Target> {
         successUrl: options.successUrl,
         failureUrl: options.failureUrl,
       })
-      .opts(opts)
+      .opts(opts);
 
     if (options.width) {
       config = config.width(options.width);
@@ -65,9 +68,7 @@ class TranscoderMp4 extends WorkerConfig<TranscodeMp4Target> {
       config = config.watermark(options.watermark);
     }
     return config;
-
-  } 
-
+  }
 }
 
 // transcoding
@@ -75,10 +76,9 @@ class TranscoderMp4 extends WorkerConfig<TranscodeMp4Target> {
 class TranscodeWebmTarget extends WorkerTarget<TranscodeJob> {
   workerConfig: TranscodeJob;
 
-  constructor (transcoder: TranscodeJob) {
+  constructor(transcoder: TranscodeJob) {
     super(transcoder);
   }
-
 }
 
 interface TranscodeWebmOptions {
@@ -91,15 +91,14 @@ interface TranscodeWebmOptions {
 }
 
 class TranscoderWebm extends WorkerConfig<TranscodeWebmTarget> {
-
   options: TranscodeWebmOptions;
 
-  constructor (apiKey: string, opts: TranscodeWebmOptions) {
+  constructor(apiKey: string, opts: TranscodeWebmOptions) {
     super(apiKey, TranscodeWebmTarget);
     this.options = opts;
   }
 
-  getExecutable (fromConfig: string | Blob) {
+  getExecutable(fromConfig: string | Blob) {
     const opts = new TranscodeOpts();
     opts.container(Container.WEBM);
     const options = this.options;
@@ -113,7 +112,7 @@ class TranscoderWebm extends WorkerConfig<TranscodeWebmTarget> {
         successUrl: options.successUrl,
         failureUrl: options.failureUrl,
       })
-      .opts(opts)
+      .opts(opts);
 
     if (options.width) {
       config = config.width(options.width);
@@ -126,9 +125,7 @@ class TranscoderWebm extends WorkerConfig<TranscodeWebmTarget> {
       config = config.watermark(options.watermark);
     }
     return config;
-
-  } 
-
+  }
 }
 
 interface ThumbnailOptions {
@@ -143,30 +140,25 @@ class ThumbnailTarget extends WorkerTarget<ThumbnailJob> {
   thumbnailer: Thumbnailer;
   inputBlob: Blob;
 
-  constructor (thumbnailer: ThumbnailJob) {
+  constructor(thumbnailer: ThumbnailJob) {
     super(thumbnailer);
   }
-
 }
 
 class Thumbnailer extends WorkerConfig<ThumbnailTarget> {
+  options: ThumbnailOptions;
 
-  options: ThumbnailOptions
-
-  constructor (apiKey: string, options: ThumbnailOptions) {
+  constructor(apiKey: string, options: ThumbnailOptions) {
     super(apiKey, ThumbnailTarget);
     this.options = options;
   }
-  getExecutable (fromConfig: string | Blob) {
-    
+  getExecutable(fromConfig: string | Blob) {
     const options = this.options;
 
-    let config = new ThumbnailJob(this.apiKey)
-      .from(fromConfig)
-      .webhooks({
-        successUrl: options.successUrl,
-        failureUrl: options.failureUrl,
-      })
+    let config = new ThumbnailJob(this.apiKey).from(fromConfig).webhooks({
+      successUrl: options.successUrl,
+      failureUrl: options.failureUrl,
+    });
 
     if (options.width) {
       config = config.width(150);
@@ -190,31 +182,28 @@ interface SummaryOptions {
 class SummaryTarget extends WorkerTarget<SummaryJob> {
   summarizer: Summarizer;
 
-  constructor (summarizer: SummaryJob) {
+  constructor(summarizer: SummaryJob) {
     super(summarizer);
   }
-
 }
 
 class Summarizer extends WorkerConfig<SummaryTarget> {
-
   options: SummaryOptions;
 
-  constructor (apiKey: string, opts: SummaryOptions) {
+  constructor(apiKey: string, opts: SummaryOptions) {
     super(apiKey, SummaryTarget);
     this.options = opts;
   }
-  getExecutable (fromConfig: string | Blob): Executable {
+  getExecutable(fromConfig: string | Blob): Executable {
     const options = this.options;
 
-    let config = new SummaryJob(this.apiKey)
-      .from(fromConfig)
+    let config = new SummaryJob(this.apiKey).from(fromConfig);
 
     if (options.width) {
       config = config.width(150);
     }
 
-    config = config.type(options.format ? options.format : "gif"); 
+    config = config.type(options.format ? options.format : "gif");
 
     if (options.watermark) {
       config = config.watermark(options.watermark);
@@ -224,29 +213,26 @@ class Summarizer extends WorkerConfig<SummaryTarget> {
       config = config.removeAudio(options.removeAudio);
     }
     return config;
-
   }
 }
-
 
 // MediaMachine
 // ==============================
 
 export class MediaMachine {
-  
   apiKey: string;
-  
-  constructor (apiKey: string) {
+
+  constructor(apiKey: string) {
     parseApiKey(apiKey);
     this.apiKey = apiKey;
   }
 
   transcodeToWebm(opts: TranscodeWebmOptions): TranscoderWebm {
-    return new TranscoderWebm(this.apiKey, opts);    
+    return new TranscoderWebm(this.apiKey, opts);
   }
 
   transcodeToMp4(opts: TranscodeMp4Options): TranscoderMp4 {
-    return new TranscoderMp4(this.apiKey, opts);    
+    return new TranscoderMp4(this.apiKey, opts);
   }
 
   thumbnail(opts: ThumbnailOptions): Thumbnailer {
@@ -257,11 +243,10 @@ export class MediaMachine {
     return new Summarizer(this.apiKey, opts);
   }
 
-  textWatermark (text: string, opts: TextWatermarkOptions = {}): TextWatermark {
+  textWatermark(text: string, opts: TextWatermarkOptions = {}): TextWatermark {
     return new TextWatermark(text, opts);
   }
-  imageWatermark (opts: ImageWatermarkOptions = {}): ImageWatermark {
+  imageWatermark(opts: ImageWatermarkOptions = {}): ImageWatermark {
     return new ImageWatermark(opts);
   }
 }
-

@@ -31,7 +31,6 @@ export class TranscodeJob implements Executable {
   constructor(apiKey: string) {
     this.transcodeWidth = 720;
     this.apiKey = apiKey;
-
   }
 
   webhooks(webhooks: Webhooks): TranscodeJob {
@@ -107,10 +106,10 @@ export class TranscodeJob implements Executable {
       apiKey: this.apiKey,
       successURL: this.successUrl,
       failureURL: this.failureUrl,
-      inputURL: this.inputUrl,
-      inputBlob: this.inputBlob?.toJSON(),
-      outputURL: this.outputUrl,
-      outputBlob: this.outputBlob?.toJSON(),
+      inputCreds: this.inputBlob?.toApiCredentials(),
+      outputCreds: this.outputBlob?.toApiCredentials(),
+      inputURL: this.inputUrl || this.inputBlob.toApiUrl(),
+      outputURL: this.outputUrl || this.outputBlob.toApiUrl(),
       width: `${this.transcodeWidth}`,
       height: `${this.transcodeHeight}`,
       watermark: this.transcodeWatermark?.toJSON(),
