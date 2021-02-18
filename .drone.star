@@ -89,7 +89,7 @@ def pipeline(kind):
                     "yarn install"
                 ],
                 "commands": [
-                    "./node_modules/.bin/ts-node tracerBullet/newsummary.ts"
+                    "./node_modules/.bin/ts-node --unhandled-rejections=strict tracerBullet/newsummary.ts"
                 ]
             },
             {
