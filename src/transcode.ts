@@ -111,7 +111,7 @@ export class TranscodeJob implements Executable {
       inputURL: this.inputUrl || this.inputBlob.toApiUrl(),
       outputURL: this.outputUrl || this.outputBlob.toApiUrl(),
       width: `${this.transcodeWidth}`,
-      height: `${this.transcodeHeight}`,
+      height: !!this.transcodeHeight ? `${this.transcodeHeight}` : undefined,
       watermark: this.transcodeWatermark?.toJSON(),
       ...this.transcodeOpts?.toJSON(),
     };

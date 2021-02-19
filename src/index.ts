@@ -177,6 +177,8 @@ interface SummaryOptions {
   watermark?: Watermark;
   format?: SummaryType;
   removeAudio?: boolean;
+  successUrl?: string;
+  failureUrl?: string;
 }
 
 class SummaryTarget extends WorkerTarget<SummaryJob> {
@@ -197,7 +199,12 @@ class Summarizer extends WorkerConfig<SummaryTarget> {
   getExecutable(fromConfig: string | Blob): Executable {
     const options = this.options;
 
-    let config = new SummaryJob(this.apiKey).from(fromConfig);
+    let config = new SummaryJob(this.apiKey)
+      .from(fromConfig)
+      .webhooks({
+        successUrl: options.successUrl,
+        failureUrl: options.failureUrl,
+      });
 
     if (options.width) {
       config = config.width(150);

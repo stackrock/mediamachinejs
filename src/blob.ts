@@ -2,7 +2,7 @@ export enum Store {
   S3 = "s3",
   AZURE_BLOB = "azure",
   GOOGLE_BLOB = "gcp",
-}  // these are also protocol prefixes
+} // these are also protocol prefixes
 
 export interface AWSCreds {
   accessKeyId: string;
@@ -32,7 +32,7 @@ export class Blob {
   azureCreds?: AzureCreds;
   gcpCreds?: GCPCreds;
 
-  constructor(creds: Credentials, bucket: string, key:string) {
+  constructor(creds: Credentials, bucket: string, key: string) {
     if (creds.type === Store.S3) {
       this.awsCreds = creds;
       this.blobStore = creds.type;
@@ -50,14 +50,20 @@ export class Blob {
   }
 
   toApiCredentials() {
-    const creds =  this.awsCreds || this.azureCreds || this.gcpCreds || undefined;
+    if (!!this.gcpCreds) {
+      // special case, we want the JSON embedded
+      return this.gcpCreds.json;
+    }
+    const creds = this.awsCreds || this.azureCreds || undefined;
     const omitSingle = (key: string, { [key]: _, ...obj }) => obj;
     return omitSingle("type", creds);
   }
 
-  toApiUrl (): string {
+  toApiUrl(): string {
     const protocol = this.blobStore;
-    const url = `${protocol}://${encodeURIComponent(this.blobBucket)}/${encodeURIComponent(this.blobKey)}`;
+    const url = `${protocol}://${encodeURIComponent(
+      this.blobBucket
+    )}/${encodeURIComponent(this.blobKey)}`;
     return url;
   }
 
