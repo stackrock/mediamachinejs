@@ -259,3 +259,4 @@ export class MediaMachine {
 // Job
 // =========================
 export { Job } from "./job";
+export { JobStatus } from "./api";
