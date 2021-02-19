@@ -62,6 +62,8 @@ interface SummaryOptions {
     watermark?: Watermark;
     format?: SummaryType;
     removeAudio?: boolean;
+    successUrl?: string;
+    failureUrl?: string;
 }
 declare class SummaryTarget extends WorkerTarget<SummaryJob> {
     summarizer: Summarizer;

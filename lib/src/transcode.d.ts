@@ -41,7 +41,7 @@ export declare class TranscodeOpts {
     container(value: Container): TranscodeOpts;
     toJSON(): {
         encoder: Encoder;
-        bitrateKbps: Bitrate;
+        bitrateKBPS: Bitrate;
         container: Container;
     };
 }

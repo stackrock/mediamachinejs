@@ -5,4 +5,5 @@ export declare class WorkerTarget<T extends Executable> {
     toAzure(accountKey: string, accountName: string, bucket: string, inputKey: string): Promise<import("./job").Job>;
     toGCloud(json: string, bucket: string, inputKey: string): Promise<import("./job").Job>;
     toS3(region: string, accessKeyId: string, secretAccessKey: string, bucket: string, inputKey: string): Promise<import("./job").Job>;
+    toUrl(url: string): Promise<import("./job").Job>;
 }

@@ -27,7 +27,7 @@ export declare class Blob {
     azureCreds?: AzureCreds;
     gcpCreds?: GCPCreds;
     constructor(creds: Credentials, bucket: string, key: string);
-    toApiCredentials(): {
+    toApiCredentials(): string | {
         [x: string]: any;
     };
     toApiUrl(): string;
