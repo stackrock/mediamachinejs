@@ -25,6 +25,17 @@ def pipeline(kind):
                 ]
             },
             {
+                "name": "tests",
+                "pull": "if-not-exists",
+                "image": "arm64v8/node:14.15-alpine",
+                "depends_on": [
+                    "yarn install"
+                ],
+                "commands": [
+                    "yarn test"
+                ]
+            },
+            {
                 "name": "thumbnail tracerBullet",
                 "pull": "if-not-exists",
                 "image": "arm64v8/node:14.15-alpine",

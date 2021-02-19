@@ -9,7 +9,7 @@ const SERVICES_TO_PATH = {
   transcode: "/transcode",
 };
 
-export type JobStatus = "notStarted" |  "queued" | "errored" | "done";
+export type JobStatus = "notStarted" | "queued" | "errored" | "done";
 
 function includes(arr: unknown[], elem: unknown) {
   for (const item of arr) {

@@ -31,7 +31,6 @@ export class TranscodeJob implements Executable {
   constructor(apiKey: string) {
     this.transcodeWidth = 720;
     this.apiKey = apiKey;
-
   }
 
   webhooks(webhooks: Webhooks): TranscodeJob {
@@ -107,14 +106,14 @@ export class TranscodeJob implements Executable {
       apiKey: this.apiKey,
       successURL: this.successUrl,
       failureURL: this.failureUrl,
-      inputURL: this.inputUrl,
-      inputBlob: this.inputBlob?.toJSON(),
-      outputURL: this.outputUrl,
-      outputBlob: this.outputBlob?.toJSON(),
+      inputCreds: this.inputBlob?.toApiCredentials(),
+      outputCreds: this.outputBlob?.toApiCredentials(),
+      inputURL: this.inputUrl || this.inputBlob.toApiUrl(),
+      outputURL: this.outputUrl || this.outputBlob.toApiUrl(),
       width: `${this.transcodeWidth}`,
-      height: `${this.transcodeHeight}`,
+      height: !!this.transcodeHeight ? `${this.transcodeHeight}` : undefined,
       watermark: this.transcodeWatermark?.toJSON(),
-      transcode: this.transcodeOpts?.toJSON(),
+      ...this.transcodeOpts?.toJSON(),
     };
 
     const resp = await API.createJob("transcode", removeUndefinedFromObj(body));
@@ -131,7 +130,7 @@ export class TranscodeOpts {
 
   constructor() {
     this.transcoderEncoder = "h264";
-    this.transcoderBitrateKbps = "4000";
+    this.transcoderBitrateKbps = "2000";
     this.transcoderContainer = Container.MP4;
   }
 
@@ -153,7 +152,7 @@ export class TranscodeOpts {
   toJSON() {
     return {
       encoder: this.transcoderEncoder,
-      bitrateKbps: this.transcoderBitrateKbps,
+      bitrateKBPS: this.transcoderBitrateKbps,
       container: this.transcoderContainer,
     };
   }

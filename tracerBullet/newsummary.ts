@@ -1,10 +1,13 @@
+process.on("unhandledRejection", (error) => {
+  throw error;
+});
 /*
  * Tracer Bullet for a transcode job.
  * We use this job internally at MediaMachine for two reasons:
  *  1) To keep the SDK in sync with API
  *  2) To Test our API is running as expected
  */
-require('dotenv').config();
+require("dotenv").config();
 import { MediaMachine } from "../src";
 
 import { sleep } from "./utils";
@@ -21,14 +24,26 @@ async function main() {
   const mediaMachine = new MediaMachine(MEDIAMACHINE_API_KEY);
 
   try {
-
-    const job = await mediaMachine.summary({
-      width: 150,
-      watermark: mediaMachine.textWatermark("mediamachine.io"),
-      format: "gif",
-    })
-    .fromS3(AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, BUCKET, INPUT_KEY)
-    .toS3(AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, BUCKET, OUTPUT_KEY)
+    const job = await mediaMachine
+      .summary({
+        width: 150,
+        watermark: mediaMachine.textWatermark("mediamachine.io"),
+        format: "gif",
+      })
+      .fromS3(
+        AWS_REGION,
+        AWS_ACCESS_KEY_ID,
+        AWS_SECRET_ACCESS_KEY,
+        BUCKET,
+        INPUT_KEY
+      )
+      .toS3(
+        AWS_REGION,
+        AWS_ACCESS_KEY_ID,
+        AWS_SECRET_ACCESS_KEY,
+        BUCKET,
+        OUTPUT_KEY
+      );
     let status = await job.status();
 
     while (status === "queued") {
@@ -49,5 +64,5 @@ async function main() {
 }
 
 (async () => {
-  await main();
+  return await main();
 })();
