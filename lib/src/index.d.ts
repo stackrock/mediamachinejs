@@ -85,3 +85,4 @@ export declare class MediaMachine {
     imageWatermark(opts?: ImageWatermarkOptions): ImageWatermark;
 }
 export { Job } from "./job";
+export { JobStatus } from "./api";
