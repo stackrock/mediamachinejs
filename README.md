@@ -7,6 +7,7 @@ This library will let you use [MediaMachine](https://mediamachine.io)'s api to:
 - Generate a summary from a video in gif or mp4 format
 
 [![npm version](https://badge.fury.io/js/mediamachine.svg)](https://badge.fury.io/js/mediamachine) [![install size](https://packagephobia.com/badge?p=mediamachine)](https://packagephobia.com/result?p=mediamachine) 
+[![Build Status](https://travis-ci.com/stackrock/mediamachinejs.svg?branch=master)](https://travis-ci.com/stackrock/mediamachinejs)
 
 ## Installation
 
