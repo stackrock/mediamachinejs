@@ -3,5 +3,4 @@ src/
 jest.config.jest
 tsconfig.json
 .nvmrc
-tracerBullet/
-.drone.yml
+.env
