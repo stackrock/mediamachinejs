@@ -1,6 +1,6 @@
 {
   "name": "mediamachine",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "MediaMachine services client api",
   "main": "lib/index.js",
   "repository": {

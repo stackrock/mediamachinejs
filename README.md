@@ -19,7 +19,7 @@ $ npm install mediamachine
 First import and create a mediamachine client: 
 
 ```javascript
-import { MediaMachine } from "../src/MediaMachine";
+import { MediaMachine } from "mediamachine";
 const MEDIAMACHINE_API_KEY = "your mediamachine api key here";
 const mediaMachine = new MediaMachine(MEDIAMACHINE_API_KEY);
 ```
