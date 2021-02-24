@@ -1,4 +1,4 @@
-<img src="https://mediamachine.io/site/img/mediamachine-logo@3x.png" width="300" alt="MediaMachine" style="background-color: white; padding: 10px 5px; border-radius: 15px" />
+<img src="https://raw.githubusercontent.com/stackrock/mediamachinejs/master/assets/img/mediamachine-logo.png" width="300" alt="MediaMachine" style="background-color: white; padding: 10px 5px; border-radius: 15px" />
 
 This library will let you use [MediaMachine](https://mediamachine.io)'s api to:
 
