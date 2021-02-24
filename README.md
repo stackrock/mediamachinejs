@@ -16,7 +16,7 @@ $ npm install mediamachine
 
 ## Usage
 
-First import and create a mediamachine client: 
+First import and create a mediamachine client:
 
 ```javascript
 import { MediaMachine } from "mediamachine";
@@ -29,7 +29,7 @@ Each type of request (`thumbnail()`, `transcodeToMp4()`, `transcodeToWebm()` and
 Input for any of the services can come from any of the following:
 
 - URL using `fromUrl()`
-- Amazon S3 using `fromS3()` 
+- Amazon S3 using `fromS3()`
 - Google GCP using `fromGCloud()`
 - Microsoft Azure buckets using `fromAzure()`
 
@@ -61,7 +61,7 @@ The simplest version might be:
       .toUrl("https://myserver.example/api/uploadFile");
 ```
 
-Here's an example usage that takes a video from Amazon S3 and puts a thumbnail back to Amazon S3.  
+Here's an example usage that takes a video from Amazon S3 and puts a thumbnail back to Amazon S3.
 
 ```javascript
     const job = await mediaMachine.thumbnail({
@@ -74,7 +74,7 @@ Here's an example usage that takes a video from Amazon S3 and puts a thumbnail b
     .toS3(AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, BUCKET, OUTPUT_KEY);
 ```
 
-Here's an example usage that takes a video from Azure and puts a thumbnail back to Azure with a full [watermark](#watermark()) configuration:  
+Here's an example usage that takes a video from Azure and puts a thumbnail back to Azure with a full [watermark](#watermark()) configuration:
 
 ```javascript
     const watermark = mediaMachine.textWatermark("media machine!!!", {
@@ -112,7 +112,7 @@ The simplest version might be:
       .toUrl("https://myserver.example/api/uploadFile");
 ```
 
-Here's an example usage that takes a video from Azure and puts an h265 mp4 version of it back to Azure.  
+Here's an example usage that takes a video from Azure and puts an h265 mp4 version of it back to Azure.
 
 ```javascript
     const job = await mediaMachine.transcodeToMp4({
@@ -126,7 +126,7 @@ Here's an example usage that takes a video from Azure and puts an h265 mp4 versi
     .toAzure(ACCOUNT_KEY, ACCOUNT_NAME, BUCKET, OUTPUT_KEY);
 ```
 
-Here's an example usage that takes a video from Google Cloud and puts an mp4 video back to Google Cloud with a full watermark configuration:  
+Here's an example usage that takes a video from Google Cloud and puts an mp4 video back to Google Cloud with a full watermark configuration:
 
 ```javascript
     const watermark = mediaMachine.textWatermark("media machine!!!", {
@@ -165,7 +165,7 @@ The simplest version might be:
       .toUrl("https://myserver.example/api/uploadFile");
 ```
 
-Here's an example usage that takes a video from Azure and puts a vp9 webm version of it back to Azure.  
+Here's an example usage that takes a video from Azure and puts a vp9 webm version of it back to Azure.
 
 ```javascript
     const job = await mediaMachine.transcodeToWebm({
@@ -179,7 +179,7 @@ Here's an example usage that takes a video from Azure and puts a vp9 webm versio
     .toAzure(ACCOUNT_KEY, ACCOUNT_NAME, BUCKET, OUTPUT_KEY);
 ```
 
-Here's an example usage that takes a video from Google Cloud and puts a webm version back to Google Cloud with a full watermark configuration:  
+Here's an example usage that takes a video from Google Cloud and puts a webm version back to Google Cloud with a full watermark configuration:
 
 ```javascript
     const watermark = mediaMachine.textWatermark("media machine!!!", {
@@ -219,7 +219,7 @@ The simplest version might be:
       .toUrl("https://myserver.example/api/uploadFile");
 ```
 
-Here's an example usage that takes a video from Google Cloud and puts a silent summarized mp4 version of it back to Google Cloud.  
+Here's an example usage that takes a video from Google Cloud and puts a silent summarized mp4 version of it back to Google Cloud.
 
 ```javascript
     const job = await mediaMachine.summary({
@@ -234,7 +234,7 @@ Here's an example usage that takes a video from Google Cloud and puts a silent s
     .toGCloud(GCLOUD_CREDS, BUCKET, OUTPUT_KEY);
 ```
 
-Here's an example usage that takes a video from Amazon S3 and puts a summarized gif back to Amazon S3 with a full watermark configuration:  
+Here's an example usage that takes a video from Amazon S3 and puts a summarized gif back to Amazon S3 with a full watermark configuration:
 
 ```javascript
     const watermark = mediaMachine.textWatermark("media machine!!!", {
@@ -276,7 +276,7 @@ A watermark is an image that is laid over another image or video, usually to add
 You can configure watermarking for any/all of your summary(), thumbnail(), transcodeToMp4(), and transcodeToWebm() calls by first creating a watermark, and then supplying it in the optional arguments to `summary()`, `thumbnail()`, `transcodeToWebm()` or `transcodeToMp4()` as the `watermark` parameter.
 
 There are two types of watermarks:
-* text watermarks where you supply and configure some text to be the watermark.  ( see [textWatermark()](#textWatermark(text, [options])) ) 
+* text watermarks where you supply and configure some text to be the watermark.  ( see [textWatermark()](#textWatermark(text, [options])) )
 * image watermarks where you supply and configure an image to be the watermark ( see [imageWatermark()](#imageWatermark()) ).
 
 ### textWatermark(text, [options])
@@ -334,7 +334,7 @@ Here's another simple example using a named watermark, after you upload one to o
     });
 ```
 
-Here's an example with all the options: 
+Here's an example with all the options:
 
 ```javascript
     const watermark = mediaMachine.imageWatermark({
