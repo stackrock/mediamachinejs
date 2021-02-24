@@ -1,6 +1,6 @@
 {
   "name": "mediamachine",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "MediaMachine services client api",
   "main": "lib/index.js",
   "repository": {
@@ -17,7 +17,7 @@
   "dependencies": {
     "axios": "0.21.1"
   },
-  "keywords": ["video", "transcoding", "thumbnailing", "transcode", "thumbnail"],
+  "keywords": ["mediamachine", "video", "transcoding", "thumbnailing", "transcode", "thumbnail", "h264", "vp8", "vp9"],
   "homepage": "https://mediamachine.io",
   "devDependencies": {
     "@types/axios": "^0.14.0",
