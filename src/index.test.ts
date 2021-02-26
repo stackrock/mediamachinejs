@@ -229,7 +229,7 @@ describe("Mediamachine", () => {
         successURL: FAKE_SUCCESS_URL,
         failureURL: FAKE_FAILURE_URL,
         inputURL: "gcp://test-bucket/test-key",
-        inputCreds: "{}",
+        inputCreds: {},
         outputURL: FAKE_OUTPUT_URL,
         width: "150",
       };
@@ -320,7 +320,7 @@ describe("Mediamachine", () => {
         failureURL: FAKE_FAILURE_URL,
         inputURL: FAKE_INPUT_URL,
         outputURL: "gcp://test-bucket/test-key",
-        outputCreds: "{}",
+        outputCreds: {},
         width: "150",
       };
       mock.onPost(`${BASE_URL}/thumbnail`, expectedBody).reply(201, retData);
@@ -348,7 +348,7 @@ describe("Mediamachine", () => {
           accessKeyId: FAKE_AWS_ACCESS_KEY_ID,
           secretAccessKey: FAKE_AWS_SECRET_ACCESS_KEY,
         },
-        outputCreds: "{}",
+        outputCreds: {},
         width: "150",
       };
 
@@ -572,7 +572,7 @@ describe("Mediamachine", () => {
         successURL: FAKE_SUCCESS_URL,
         failureURL: FAKE_FAILURE_URL,
         inputURL: "gcp://test-bucket/test-key",
-        inputCreds: "{}",
+        inputCreds: {},
         outputURL: FAKE_OUTPUT_URL,
         width: "150",
       };
@@ -631,7 +631,7 @@ describe("Mediamachine", () => {
         failureURL: FAKE_FAILURE_URL,
         inputURL: FAKE_INPUT_URL,
         outputURL: "gcp://test-bucket/test-key",
-        outputCreds: "{}",
+        outputCreds: {},
         width: "150",
       };
 
@@ -661,7 +661,7 @@ describe("Mediamachine", () => {
           secretAccessKey: FAKE_AWS_SECRET_ACCESS_KEY,
         },
         outputURL: "gcp://test-bucket/test-key",
-        outputCreds: "{}",
+        outputCreds: {},
         width: "150",
       };
 
@@ -898,7 +898,7 @@ describe("Mediamachine", () => {
         successURL: FAKE_SUCCESS_URL,
         failureURL: FAKE_FAILURE_URL,
         inputURL: "gcp://test-bucket/test-key",
-        inputCreds: "{}",
+        inputCreds: {},
         outputURL: FAKE_OUTPUT_URL,
         width: "150",
       };
@@ -957,7 +957,7 @@ describe("Mediamachine", () => {
         failureURL: FAKE_FAILURE_URL,
         inputURL: FAKE_INPUT_URL,
         outputURL: "gcp://test-bucket/test-key",
-        outputCreds: "{}",
+        outputCreds: {},
         width: "150",
       };
 
@@ -987,7 +987,7 @@ describe("Mediamachine", () => {
           secretAccessKey: FAKE_AWS_SECRET_ACCESS_KEY,
         },
         outputURL: "gcp://test-bucket/test-key",
-        outputCreds: "{}",
+        outputCreds: {},
         width: "150",
       };
 
@@ -1233,7 +1233,7 @@ describe("Mediamachine", () => {
         successURL: FAKE_SUCCESS_URL,
         failureURL: FAKE_FAILURE_URL,
         inputURL: "gcp://test-bucket/test-key",
-        inputCreds: "{}",
+        inputCreds: {},
         outputURL: FAKE_OUTPUT_URL,
         encoder: "h264",
         bitrateKBPS: "2000",
@@ -1296,7 +1296,7 @@ describe("Mediamachine", () => {
         failureURL: FAKE_FAILURE_URL,
         inputURL: FAKE_INPUT_URL,
         outputURL: "gcp://test-bucket/test-key",
-        outputCreds: "{}",
+        outputCreds: {},
         encoder: "h264",
         bitrateKBPS: "2000",
         container: "mp4",
@@ -1328,7 +1328,7 @@ describe("Mediamachine", () => {
           secretAccessKey: FAKE_AWS_SECRET_ACCESS_KEY,
         },
         outputURL: "gcp://test-bucket/test-key",
-        outputCreds: "{}",
+        outputCreds: {},
         encoder: "h264",
         bitrateKBPS: "2000",
         container: "mp4",
