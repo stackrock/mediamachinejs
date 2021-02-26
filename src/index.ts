@@ -199,12 +199,10 @@ class Summarizer extends WorkerConfig<SummaryTarget> {
   getExecutable(fromConfig: string | Blob): Executable {
     const options = this.options;
 
-    let config = new SummaryJob(this.apiKey)
-      .from(fromConfig)
-      .webhooks({
-        successUrl: options.successUrl,
-        failureUrl: options.failureUrl,
-      });
+    let config = new SummaryJob(this.apiKey).from(fromConfig).webhooks({
+      successUrl: options.successUrl,
+      failureUrl: options.failureUrl,
+    });
 
     if (options.width) {
       config = config.width(150);
@@ -257,3 +255,5 @@ export class MediaMachine {
     return new ImageWatermark(opts);
   }
 }
+
+export { Job } from "./job";
