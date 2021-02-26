@@ -52,7 +52,7 @@ export class Blob {
   toApiCredentials() {
     if (!!this.gcpCreds) {
       // special case, we want the JSON embedded
-      return this.gcpCreds.json;
+      return JSON.parse(this.gcpCreds.json);
     }
     const creds = this.awsCreds || this.azureCreds || undefined;
     const omitSingle = (key: string, { [key]: _, ...obj }) => obj;
